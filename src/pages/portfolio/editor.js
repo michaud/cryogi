@@ -1,26 +1,39 @@
-import { useState } from 'react';
+import {
+    useEffect,
+    useState
+} from 'react';
 
 import { useAuth } from '@contexts/AuthProvider';
+import { PageContainer } from '@styled/page.style';
+import PortfolioForm from '@components/portfolio/PortfolioForm';
+import setupDataObject from '@utils/setupDataObject';
+import portfolioShape from '@contexts/shapes/portfolio-shape.json';
 
-const Editor = () => {
+const Editor = (props) => {
 
-    const { userData } = useAuth();
-    const [PTI, setPTI] = useState();
+    const {
+        portfolioData,
+        isLoading,
+        isError,
+        reloadPortfolio
+    } = useAuth();
 
-    const getData = async () => {
+    const [doc, setDoc] = useState();
+    const [portfolio, setPortfolio] = useState();
+   
+    useEffect(() => {
 
-        // const user = userData.user;
-        // const pti = await user.publicTypeIndex;
-        // setPTI(pti.value);
-    };
-    
-    getData();
+        if(portfolioData.doc) {
+            setDoc(portfolioData.doc);
+        } else {
+            setPortfolio(setupDataObject(portfolioShape));
+        }
+    }, [portfolioData]);
 
     return (
-        <div>
-        editor:
-        { PTI }
-        </div>
+        <PageContainer>
+            <PortfolioForm label={ portfolioShape.label }/>
+        </PageContainer>
     )
 };
 

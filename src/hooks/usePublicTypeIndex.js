@@ -1,5 +1,11 @@
 import { useState, useEffect } from 'react';
 
+import ulog from 'ulog';
+
+import fetchPublicTypeIndex from '@services/fetchPublicTypeIndex';
+
+const log = ulog('usePublicTypeIndex');
+
 const usePublicTypeIndex = () => {
     
     const [reload, setReload] = useState(false);
@@ -12,10 +18,11 @@ const usePublicTypeIndex = () => {
         let didCancel = false;
 
         const fetchData = async () => {
-            
+
             if(!publicTypeIndex.doc || reload) {
 
                 try {
+
                     const doc = await fetchPublicTypeIndex();
 
                     if(!didCancel) setPublicTypeIndex(state => ({

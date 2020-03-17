@@ -5,7 +5,11 @@ import React, {
     useEffect
 } from 'react';
 
+import 'setimmediate';
+
 import { useRouter } from 'next/router';
+import usePortfolioType from '@hooks/usePortfolioType';
+import usePublicTypeIndex from '@hooks/usePublicTypeIndex';
 
 const auth = require('solid-auth-client');
 const { default: data } = require('@solid/query-ldflex');
@@ -17,15 +21,21 @@ const AuthProvider = ({ children }) => {
     const { pathname, events } = useRouter();
     const [webId, setWebId] = useState();
     const [userName, setUserName] = useState();
+    const [publicTypeIndexRef, setPublicTypeIndexRef] = useState();
+    const [{ publicTypeIndex, isLoading: publicTypeIndexIsLoading, isError: publicTypeIndexIsError }, reloadPublicTypeIndex] = usePublicTypeIndex();
+    const [{ portfolioData, isLoading: portfolioDataIsLoading, isError: portfolioDataIsError }, reloadPortfolio ] = usePortfolioType(publicTypeIndex);
 
     const setUserData = async () => {
 
-        const user = data.user;
+
+        const user = await data.user;
         const me = await data.user.value;
         const name = await user.name;
+        const publicTypeIndex = await user.publicTypeIndex;
 
-        if (me && name) {
-
+        if (me && name && publicTypeIndex) {
+            
+            setPublicTypeIndexRef(publicTypeIndex.value);
             setWebId(me);
             setUserName(name.value);
         }
@@ -90,9 +100,23 @@ const AuthProvider = ({ children }) => {
     }, [webId])
 
     return (
-        <AuthContext.Provider value={ { auth, webId, userName, userData: data, login } }>{ children }</AuthContext.Provider>
+        <AuthContext.Provider value={ {
+            auth,
+            webId,
+            publicTypeIndexRef,
+            userName,
+            userData: data,
+            portfolioData,
+            reloadPublicTypeIndex,
+            publicTypeIndexIsLoading,
+            publicTypeIndexIsError,
+            portfolioDataIsLoading,
+            portfolioDataIsError,
+            reloadPortfolio,
+            login
+        } }>{ children }</AuthContext.Provider>
     )
-}
+};
 
 const useAuth = () => {
     

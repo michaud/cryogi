@@ -36,6 +36,9 @@
                     },
                     {
                         "@styles": "./src/scss"
+                    },
+                    {
+                        "@styled": "./src/styled"
                     }
                 ]
             }

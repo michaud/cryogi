@@ -5,7 +5,7 @@ import '@styles/_style.scss';
 const App = ({ Component, pageProps }) => {
 
     return <AuthProvider>
-        <Component {...pageProps} />
+        <Component { ...pageProps } />
     </AuthProvider>;
 }
 export default App;
