@@ -32,12 +32,9 @@ const PeriodInput = ({ params, label }) => {
 
         setError(
             !hasPeriodIndicator &&
-            !dates.reduce((acc, date) => {
-                console.log('acc:', acc)
-
-                return acc &&
-                isValidDate(parse(date.trim(), 'M-yy', new Date()))
-            }, true)
+            !dates.reduce((acc, date) => acc && isValidDate(
+                parse(date.trim(), 'M-yy', new Date())
+            ), true)
         );
     }
 

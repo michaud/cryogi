@@ -20,11 +20,7 @@ const getFieldValue = (field, args) => {
         case portfolio.types.tool: return data;
         case portfolio.classes.Agency: return data.currentTarget.value;
         case portfolio.classes.DatePeriod: return data;
-        case portfolio.classes.Screenshot: {
-            
-            console.log('data:', data)
-            return data;
-        }
+        case portfolio.classes.Screenshot: return data;
 
         default: {
             

@@ -11,7 +11,6 @@ const ManageProjects = ({ items, label }) => {
     const [projects, setProjects] = useState([]);
 
     const onSaveProjectHandler = async (item) => {
-        console.log('item:', item)
 
         // await saveListResourse({
         //     resource: item,

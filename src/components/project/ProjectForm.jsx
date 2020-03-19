@@ -34,18 +34,13 @@ const ProjectForm = ({ item, onSave, label }) => {
 
 
         const value = getFieldValue(fieldDef, [...args]);
-        console.log('value:', value)
 
         setProject(state => update(state, {
             [fieldDef.predicate]: { value: { $set: value } }
         }));
     };
 
-    const saveProjectHandler = () => {
-
-        console.log('project:', JSON.stringify(project))
-        onSave(project);
-    };
+    const saveProjectHandler = () => onSave(project);
 
     const fields = [];
     
