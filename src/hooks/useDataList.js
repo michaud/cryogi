@@ -3,7 +3,6 @@ import { solid, rdf } from 'rdf-namespaces';
 import ulog from 'ulog';
 
 import { namedNode } from '@rdfjs/data-model';
-import portfolioNs from '@constants/portfolio-namespace';
 
 import initialiseTypeDocument from '@services/initialiseTypeDocument';
 import fetchResource from '@services/fetchResource';
@@ -67,7 +66,7 @@ const updateInList = (list, dataList) => {
     return [...startItems, list[0], ...endItems];
 };
 
-const usePortfolios = (publicTypeIndex, type, fileName) => {
+const useDataList = (publicTypeIndex, type, fileName) => {
 
     const [reload, setReload] = useState(false);
     const [listData, setListData] = useState({ list: [], doc: undefined });
@@ -95,7 +94,7 @@ const usePortfolios = (publicTypeIndex, type, fileName) => {
                         // If no clubList document is listed in the public type index, create one:
                         const doc = await initialiseTypeDocument(
                             type,
-                            `${ paths.APP_DATA_LIST_PATH }/${ fileName }`
+                            `${ paths.APP_DATA_LIST_PATH }${ fileName }`
                         );
 
                         if (doc === null) return;
@@ -172,4 +171,4 @@ const usePortfolios = (publicTypeIndex, type, fileName) => {
     }];
 };
 
-export default usePortfolios;
+export default useDataList;

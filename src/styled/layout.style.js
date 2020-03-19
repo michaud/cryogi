@@ -44,3 +44,9 @@ export const FlexToolRight = styled.div`
     flex: 0;
     text-align: right;
 `;
+
+export const GridContainer = styled.div`
+    display: grid;
+    grid-template-columns: ${ props => props.cols ? prop.cols : '1fr 1fr' };
+    gap: 2rem;
+`;

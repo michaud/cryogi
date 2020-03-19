@@ -3,14 +3,15 @@ import React, {
     useEffect
 } from 'react';
 
-import { useAuth } from '@contexts/AuthProvider';
-import saveListResourse from '@services/saveListResourse';
-
-import PortfolioForm from '@components/portfolio/PortfolioForm';
 import portfolio from '@constants/portfolio-namespace';
 import paths from '@constants/paths';
+import saveListResourse from '@services/saveListResourse';
+import { useAppData } from '@contexts/AppDataProvider';
+
+import PortfolioForm from '@components/portfolio/PortfolioForm';
 import PortfolioList from '@components/portfolio/PortfolioList';
-import { FlexContainer, FlexItem } from '@styled/layout.style';
+
+import { GridContainer } from '@styled/layout.style';
 
 const ManagePortfolios = ({ label }) => {
 
@@ -18,8 +19,8 @@ const ManagePortfolios = ({ label }) => {
         portfolioData,
         isLoading,
         isError,
-        reloadPortfolio
-    } = useAuth();
+        reloadPortfolios
+    } = useAppData();
 
     const [portfolios, setPortfolios] = useState([]);
    
@@ -27,7 +28,7 @@ const ManagePortfolios = ({ label }) => {
 
         let isCancel = false;
 
-        if(portfolioData.doc) {
+        if(portfolioData) {
 
             if(!isCancel) setPortfolios(portfolioData.list);
         }
@@ -46,23 +47,18 @@ const ManagePortfolios = ({ label }) => {
             itemPath: paths.APP_DATA_PORTFOLIO_PATH
         });
 
-        reloadPortfolio();
+        reloadPortfolios();
     };
 
     return (
         <div>
             <h2>{ label }</h2>
-            <FlexContainer>
-                <FlexItem>
+            <GridContainer>
                     <PortfolioForm
                         label="Add portfolio"
                         onSave={ onSavePortfolioHandler }/>
-                </FlexItem>
-                <FlexItem>
                     <PortfolioList label="Porfolios" items={ portfolios }/>
-                </FlexItem>
-                
-            </FlexContainer>
+            </GridContainer>
         </div>
     );
 };

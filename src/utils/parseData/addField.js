@@ -28,7 +28,7 @@ export const addField = ({
         }
 
         case portfolio.types.string : {
-debugger
+
             ref.addLiteral(predicate, data.value);
 
             break;
@@ -49,6 +49,67 @@ debugger
                 
             });
         }
+
+        case portfolio.types.role : {
+
+            ref.addLiteral(predicate, data.value.join());
+
+            break;
+        }
+
+        case portfolio.types.responsibility : {
+
+            ref.addLiteral(predicate, data.value.join());
+
+            break;
+        }
+
+        case portfolio.types.tool : {
+
+            ref.addLiteral(predicate, data.value.join());
+
+            break;
+        }
+
+        case portfolio.types.technology : {
+
+            ref.addLiteral(predicate, data.value.join());
+
+            break;
+        }
+
+        case portfolio.classes.Agency : {
+
+            ref.addLiteral(predicate, data.value);
+
+            break;
+        }
+
+        case portfolio.classes.DatePeriod : {
+
+            ref.addLiteral(predicate, data.value.join());
+
+            break;
+        }
+
+        case portfolio.classes.Screenshot : {
+
+            const screenshots = data.value;
+                    
+            screenshots.forEach(shot => {
+
+                const elRef = saveElement({
+                    element: shot,
+                    doc,
+                    type: field.type
+                })
+    
+                ref.addRef(portfolio.properties.screenshots, elRef.asRef());
+            });
+
+            break;
+        }
+
         // case golf.classes.Course : {
 
         //     const course = data.value;

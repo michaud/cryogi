@@ -10,6 +10,7 @@ import TextChipAutoComplete from '@components/TextChipAutoComplete';
 import ulog from 'ulog';
 
 import portfolio from "@constants/portfolio-namespace";
+import { GolfCourse } from 'rdf-namespaces/dist/schema';
 
 const log = ulog('usePublicTypeIndex');
 
@@ -73,6 +74,9 @@ const getFieldControl = ({
 
         case portfolio.classes.Project : {
 
+            if(data.iri === portfolio.properties.projects) {
+                return <div key={ idx }>portfolio projects</div>
+            }
             return <ManageProjects
                 key={ idx }
                 items={ data.value }

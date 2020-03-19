@@ -21,6 +21,8 @@ const getFieldData = (shape, doc, data, ...rest) => field => {
 
     let fieldData;
 
+    //getTypeData[type](doc) when you need to pick elements from the document
+    //getTypeData[type](predicate) when your just reading the value
     switch(type) {
 
         case portfolio.types.string:
@@ -33,6 +35,55 @@ const getFieldData = (shape, doc, data, ...rest) => field => {
         }
 
         case portfolio.classes.Project: {
+
+            fieldData = getTypeData[type](doc)(data, label, fieldValue);
+
+            break;
+        }
+
+        case portfolio.types.role: {
+
+            fieldData = getTypeData[type](predicate)(data, label, fieldValue);
+
+            break;
+        }
+
+        case portfolio.types.responsibility: {
+
+            fieldData = getTypeData[type](predicate)(data, label, fieldValue);
+
+            break;
+        }
+
+        case portfolio.classes.DatePeriod: {
+
+            fieldData = getTypeData[type](predicate)(data, label, fieldValue);
+
+            break;
+        }
+
+        case portfolio.types.tool: {
+
+            fieldData = getTypeData[type](predicate)(data, label, fieldValue);
+
+            break;
+        }
+
+        case portfolio.types.technology: {
+
+            fieldData = getTypeData[type](predicate)(data, label, fieldValue);
+
+            break;
+        }
+
+        case portfolio.classes.Agency: {
+
+            fieldData = getTypeData[type](predicate)(data, label, fieldValue);
+
+            break;
+        }
+
+        case portfolio.classes.Screenshot: {
 
             fieldData = getTypeData[type](doc)(data, label, fieldValue);
 

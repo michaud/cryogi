@@ -1,5 +1,6 @@
 import { PageContainer } from '@styled/page.style';
 import ManagePortfolios from '@components/portfolio/ManagePortfolios';
+import ManageProjects from '@components/project/ManageProjects';
 
 const Editor = () => {
 
@@ -7,6 +8,7 @@ const Editor = () => {
         <PageContainer>
             <h1>Portfolio editor</h1>
             <ManagePortfolios label={ 'Portfolios' }/>
+            <ManageProjects label={ 'Projects' }/>
         </PageContainer>
     )
 };
