@@ -3,11 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 const formStyles = makeStyles(theme => ({
     textField: {
         '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
-            borderColor: 'rgb(80, 166, 0)'
         },
         width: '100%',
         '& .MuiOutlinedInput-notchedOutline': {
-            borderColor: 'rgba(210, 199, 157)'
         },
         '&.MuiFormControl-root': {
             margin: '0 0 1.5rem 0'
@@ -60,19 +58,15 @@ const formStyles = makeStyles(theme => ({
         '&.MuiFormControl-root': {
             display: 'block',
             '& .MuiOutlinedInput-notchedOutline': {
-                borderColor: 'rgba(210, 199, 157)'
             }
         },
         '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
-            borderColor: 'rgb(80, 166, 0)'
         }
     },
     select: {
         '&.MuiFormControl-root': {
             width: '100%',
-            borderColor: 'rgba(210, 199, 157)',
             '& .MuiOutlinedInput-notchedOutline': {
-                borderColor: 'rgba(210, 199, 157)'
             }
         },
         '& .MuiOutlinedInput-notchedOutline legend': {
@@ -98,12 +92,12 @@ const formStyles = makeStyles(theme => ({
         }
     },
     button: {
-        background: 'linear-gradient(171deg, rgb(85, 177, 0) 0%, rgb(55, 116, 0) 100%)',
+        // background: 'linear-gradient(171deg, rgb(85, 177, 0) 0%, rgb(55, 116, 0) 100%)',
         '& .MuiButton-label': {
             color: 'white'
         },
         '&.Mui-disabled.Mui-disabled': {
-            background: 'linear-gradient(171deg, rgb(241, 234, 208) 0%, rgb(218, 208, 169) 100%)',
+            // background: 'linear-gradient(171deg, rgb(241, 234, 208) 0%, rgb(218, 208, 169) 100%)',
         },
         '&:disabled': {
             opacity: 1,
@@ -117,13 +111,13 @@ const formStyles = makeStyles(theme => ({
         right: '0.3rem',
         bottom: '-0.75rem',
         '& .MuiSvgIcon-root': {
-            fill: 'rgb(55, 116, 0)'
+            // fill: 'rgb(55, 116, 0)'
         }
     },
     toolButton: {
         minWidth: '3rem',
         height: '4rem',
-        background: 'linear-gradient(171deg, rgb(85, 177, 0) 0%, rgb(55, 116, 0) 100%)',
+        // background: 'linear-gradient(171deg, rgb(85, 177, 0) 0%, rgb(55, 116, 0) 100%)',
         color: 'rgba(255, 255, 255, 0.9)',
         '& .MuiButton-root': {
             minWidth: '3rem',
@@ -149,9 +143,9 @@ const formStyles = makeStyles(theme => ({
     },
     editIconButton: {
         '&.MuiIconButton-root:hover': {
-            color: 'rgb(55, 116, 0)',
+            // color: 'rgb(55, 116, 0)',
             '& .MuiTouchRipple-root': {
-                border: '1px solid rgba(55, 116, 0,.2)'
+                // border: '1px solid rgba(55, 116, 0,.2)'
             }
         }
     }

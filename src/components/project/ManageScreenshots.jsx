@@ -9,8 +9,9 @@ import getFieldControl from '@utils/getFieldControl';
 import formStyles from '@styled/form.style';
 
 import ScreenshotForm from './ScreenshotForm';
+import ScreenshotList from './ScreenshotList';
 
-const ManageScreenshots = ({ items, label }) => {
+const ManageScreenshots = ({ items, onChange, label }) => {
 
     const [screenshots, setScreenshots] = useState([]);
 
@@ -23,14 +24,24 @@ const ManageScreenshots = ({ items, label }) => {
 
     }, [items])
 
+
+    const onAddHandler = (shot) => {
+
+        setScreenshots(state => {
+            const newState = update(state, { $push: [shot]});
+            
+            onChange(newState);
+
+            return newState;
+
+        });
+    }
+
     return (
         <div>
-            <div>{ label }</div>
-        {
-            screenshots.length > 0 ?
-                screenshots.map((screenshot, idx) => <div key={ idx }>screenshot</div>)
-                : <ScreenshotForm />
-        }
+            <h5>{ label }</h5>
+            <ScreenshotList items={ screenshots }/>
+            <ScreenshotForm onAdd={ onAddHandler } />
         </div>
     );
 };

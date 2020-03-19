@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 
 import update from 'immutability-helper';
 
+import Button from '@material-ui/core/Button';
+
 import setupDataObject from '@utils/setupDataObject';
 import portfolioShape from '@contexts/shapes/portfolio-shape.json';
 import getFieldControl from '@utils/getFieldControl';
@@ -9,14 +11,15 @@ import getFieldValue from '@utils/getFieldValue';
 
 import formStyles from '@styled/form.style';
 
-const PortfolioForm = ({ item, label }) => {
+const PortfolioForm = ({ item, onSave, label }) => {
 
     const [portfolio, setPortfolio] = useState();
+    
     const classes = formStyles();
 
     useEffect(() => {
 
-        if(portfolio) {
+        if(item) {
 
             setPortfolio(item)
 
@@ -27,6 +30,10 @@ const PortfolioForm = ({ item, label }) => {
 
     }, [item])
 
+    const savePortfolioHandler = () => {
+
+        onSave(portfolio)
+    };
     
     const onChangeField = fieldDef => (...args)  => {
 
@@ -59,7 +66,17 @@ const PortfolioForm = ({ item, label }) => {
 
     return (
         <div>
-            <div>{ label }</div>
+            <h3 className="c-tool-header">
+                <span>{ label }</span>
+                <span>
+                    <Button
+                        variant="contained"
+                        // disabled={ !canSave.can }
+                        onClick={ savePortfolioHandler }
+                        className={ classes.button }
+                        color="primary">Save</Button>
+                </span>
+            </h3>
             { portfolioFields }
         </div>
     );

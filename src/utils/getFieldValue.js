@@ -7,7 +7,6 @@ const log = ulog('getFieldValue');
 const getFieldValue = (field, args) => {
 
     const [data] = args;
-    console.log('data:', data)
 
     switch(field.type) {
         case portfolio.types.text:
@@ -19,6 +18,13 @@ const getFieldValue = (field, args) => {
         case portfolio.types.role: return data;
         case portfolio.types.responsibility: return data;
         case portfolio.types.tool: return data;
+        case portfolio.classes.Agency: return data.currentTarget.value;
+        case portfolio.classes.DatePeriod: return data;
+        case portfolio.classes.Screenshot: {
+            
+            console.log('data:', data)
+            return data;
+        }
 
         default: {
             

@@ -7,9 +7,11 @@ import screenshotShape from '@contexts/shapes/screenshot-shape.json';
 import getFieldControl from '@utils/getFieldControl';
 import getFieldValue from '@utils/getFieldValue';
 
+import Button from '@material-ui/core/Button';
+
 import formStyles from '@styled/form.style';
 
-const ScreenshotForm = ({ item, label }) => {
+const ScreenshotForm = ({ item, onAdd, label }) => {
 
     const [screenshot, setScreenshot] = useState();
     const classes = formStyles();
@@ -26,6 +28,11 @@ const ScreenshotForm = ({ item, label }) => {
         }
 
     }, [item])
+
+    const addHandler = () => {
+
+        onAdd(screenshot);
+    }
 
     
     const onChangeField = fieldDef => (...args)  => {
@@ -59,7 +66,14 @@ const ScreenshotForm = ({ item, label }) => {
 
     return (
         <div>
+            <h4>{ label }</h4>
             { fields }
+            <Button
+                variant="contained"
+                // disabled={ !canSave.can }
+                onClick={ addHandler }
+                className={ classes.button }
+                color="primary">Add</Button>
         </div>
     );
 };

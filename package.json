@@ -22,7 +22,7 @@
     "@material-ui/lab": "^4.0.0-alpha.45",
     "@material-ui/pickers": "^3.2.10",
     "@solid/query-ldflex": "^2.10.0",
-    "date-fns": "^2.8.1",
+    "date-fns": "^2.11.0",
     "immutability-helper": "^3.0.1",
     "rdf-namespaces": "^1.8.0",
     "sass": "^1.26.3",

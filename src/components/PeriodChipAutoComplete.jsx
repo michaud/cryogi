@@ -4,6 +4,8 @@ import Chip from '@material-ui/core/Chip';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import PeriodChip from './PeriodChip';
+import PeriodInput from './PeriodInput';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -11,7 +13,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const ChipAutoComplete = ({ value, onChange, defaultItemList = [], label = '' }) => {
+const PeriodChipAutoComplete = ({ value, onChange, defaultItemList = [], label = '' }) => {
 
     const classes = useStyles();
     const [items, setItems] = useState([]);
@@ -22,24 +24,29 @@ const ChipAutoComplete = ({ value, onChange, defaultItemList = [], label = '' })
         onChange(value);
     }
 
+    const placeholder = items.length > 0 ? 'next' : label;
     return (
         <Autocomplete
             multiple
             className={ classes.root }
-            id="tags-filled"
+            id={ `${ label }tags-filled` }
             options={ defaultItemList.map(option => option.title) }
             value={ items }
             freeSolo
             onChange={ handleChange }
             renderTags={ (value, getTagProps) =>
                 value.map((option, index) => (
-                    <Chip key={ index } variant="outlined" label={ option } { ...getTagProps({ index }) } />
+                    <PeriodChip key={ index } label={ option } { ...getTagProps({ index }) } />
                 ))
             }
             renderInput={ params => (
-                <TextField { ...params } variant="outlined" label={ label } placeholder={ label } />
+                <PeriodInput params={ params }
+                    variant="outlined"
+                    label={ label }
+                    placeholder={ placeholder }
+                    helperText={ <span>type a date range like: '2-16>3-17', hit enter, repeat</span> }/>
             ) }/>
     );
 };
 
-export default ChipAutoComplete;
+export default PeriodChipAutoComplete;

@@ -1,8 +1,8 @@
-import parseFields from '@golfutils/parseData/parseFields';
-import addField from './addField';
-import setField from './setField';
-import getSimpleLiteral from './getSimpleLiteral';
-import getFieldData from './getFieldData';
+import parseFields from '@utils/parseData/parseFields';
+import addField from '@utils/parseData/addField';
+import setField from '@utils/parseData/setField';
+import getSimpleLiteral from '@utils/parseData/getSimpleLiteral';
+import getFieldData from '@utils/parseData/getFieldData';
 
 export default {
     parseFields,

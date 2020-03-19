@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 import update from 'immutability-helper';
 
+import Button from '@material-ui/core/Button';
+
 import setupDataObject from '@utils/setupDataObject';
 import projectShape from '@contexts/shapes/project-shape.json';
 import getFieldControl from '@utils/getFieldControl';
@@ -9,7 +11,7 @@ import getFieldControl from '@utils/getFieldControl';
 import formStyles from '@styled/form.style';
 import getFieldValue from '@utils/getFieldValue';
 
-const ProjectForm = ({ item }) => {
+const ProjectForm = ({ item, onSave, label }) => {
 
     const [project, setProject] = useState();
     const classes = formStyles();
@@ -39,6 +41,12 @@ const ProjectForm = ({ item }) => {
         }));
     };
 
+    const saveProjectHandler = () => {
+
+        console.log('project:', JSON.stringify(project))
+        onSave(project);
+    };
+
     const fields = [];
     
     let index = 0;
@@ -61,8 +69,14 @@ const ProjectForm = ({ item }) => {
 
     return (
         <div>
-            ProjectForm
+            <h4>{ label }</h4>
             { fields }
+            <Button
+                variant="contained"
+                // disabled={ !canSave.can }
+                onClick={ saveProjectHandler }
+                className={ classes.button }
+                color="primary">Save</Button>
         </div>
     );
 };

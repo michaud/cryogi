@@ -7,7 +7,7 @@
         "rdf": "<http://www.w3.org/1999/02/22-rdf-syntax-ns#>",
         "as": "https://www.w3.org/ns/activitystreams#",
         "terms": "http://purl.org/dc/terms/",
-        "portfolio": "https://michaud.inrupt.net/public/ont/portfolio",
+        "portfolio": "https://michaud.inrupt.net/public/ont/portfolio/",
         "me": "https://michaud.inrupt.net/profile/card#me"
     },
     "label": "Project",
@@ -22,6 +22,14 @@
         },
         {
             "prefix": "portfolio",
+            "predicate": "clientName",
+            "type": "http://www.w3.org/2001/XMLSchema#string",
+            "label": "Client name",
+            "required": false,
+            "value": ""
+        },
+        {
+            "prefix": "portfolio",
             "predicate": "description",
             "type": "https://schema.org/Text",
             "label": "Description",
@@ -29,10 +37,35 @@
         },
         {
             "prefix": "portfolio",
-            "predicate": "clientName",
-            "type": "http://www.w3.org/2001/XMLSchema#string",
-            "label": "Client name",
+            "predicate": "mission",
+            "type": "https://schema.org/Text",
+            "label": "Mission",
+            "required": false,
             "value": ""
+        },
+        {
+            "prefix": "portfolio",
+            "predicate": "result",
+            "type": "https://schema.org/Text",
+            "label": "Result",
+            "required": false,
+            "value": ""
+        },
+        {
+            "prefix": "portfolio",
+            "predicate": "roles",
+            "type": "https://michaud.inrupt.net/public/ont/portfolio/role",
+            "label": "Roles",
+            "required": false,
+            "value": []
+        },
+        {
+            "prefix": "portfolio",
+            "predicate": "responsibilities",
+            "type": "https://michaud.inrupt.net/public/ont/portfolio/responsibility",
+            "label": "Responsibilities",
+            "required": false,
+            "value": []
         },
         {
             "prefix": "portfolio",
@@ -46,6 +79,7 @@
             "predicate": "tools",
             "type": "https://michaud.inrupt.net/public/ont/portfolio/tool",
             "label": "Tools",
+            "required": false,
             "value": []
         },
         {
@@ -53,21 +87,8 @@
             "predicate": "technologies",
             "type": "https://michaud.inrupt.net/public/ont/portfolio/technology",
             "label": "Technologies",
+            "required": false,
             "value": []
-        },
-        {
-            "prefix": "portfolio",
-            "predicate": "mission",
-            "type": "https://schema.org/Text",
-            "label": "Mission",
-            "value": ""
-        },
-        {
-            "prefix": "portfolio",
-            "predicate": "result",
-            "type": "https://schema.org/Text",
-            "label": "Result",
-            "value": ""
         },
         {
             "prefix": "portfolio",
@@ -78,23 +99,10 @@
         },
         {
             "prefix": "portfolio",
-            "predicate": "roles",
-            "type": "https://michaud.inrupt.net/public/ont/portfolio/role",
-            "label": "Roles",
-            "value": []
-        },
-        {
-            "prefix": "portfolio",
-            "predicate": "responsibilities",
-            "type": "https://michaud.inrupt.net/public/ont/portfolio/responsibility",
-            "label": "Responsibilities",
-            "value": []
-        },
-        {
-            "prefix": "portfolio",
             "predicate": "screenshots",
             "type": "https://michaud.inrupt.net/public/ont/portfolio/Screenshot",
             "label": "Screenshots",
+            "required": false,
             "value": []
         }
     ]

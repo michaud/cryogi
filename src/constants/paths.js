@@ -1,6 +1,8 @@
 const paths = {
-    REACT_APP_PORTFOLIO_DATA_PATH: 'public/portfolio/',
-    REACT_APP_GOLF_DATA_GAMES_PATH: 'public/golf/data/portfolio/projects'
+    APP_DATA_PATH: 'public/portfolio/',
+    APP_DATA_LIST_PATH: 'public/portfolio/',
+    APP_DATA_PORTFOLIO_PATH: 'public/portfolio/portfolio/',
+    APP_DATA_PROJECT_PATH: 'public/portfolio/project/',
 }
 
 export default paths;

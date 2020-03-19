@@ -2,18 +2,14 @@ import React from 'react';
 
 import TextField from '@material-ui/core/TextField';
 import ManageProjects from '@components/project/ManageProjects';
-import EditPeriods from '@components/project/EditPeriods';
+import ManagePeriods from '@components/project/ManagePeriods';
 import ManageScreenshots from '@components/project/ManageScreenshots'; 
 import DateTimeSelector from '@components/DateTimeSelector';
-import ChipAutoComplete from '@components/ChipAutoComplete';
-
-
+import TextChipAutoComplete from '@components/TextChipAutoComplete';
 
 import ulog from 'ulog';
 
 import portfolio from "@constants/portfolio-namespace";
-
-import { FlexContainer } from '@styled/layout.style';
 
 const log = ulog('usePublicTypeIndex');
 
@@ -86,7 +82,7 @@ const getFieldControl = ({
 
         case portfolio.classes.DatePeriod: {
 
-            return <EditPeriods
+            return <ManagePeriods
                 items={ data.value }
                 label={ data.label }
                 onChange={ onChange(data) }
@@ -115,38 +111,38 @@ const getFieldControl = ({
 
         case portfolio.types.technology : {
 
-            return <ChipAutoComplete
+            return <TextChipAutoComplete
                 label={ data.label }
                 value={ data.value }
                 onChange={ onChange(data) }
-                key={ idx }/>
+                key={ `technology${ idx}` }/>
         }
 
         case portfolio.types.role : {
-            return <ChipAutoComplete
+            return <TextChipAutoComplete
                 label={ data.label }
                 value={ data.value }
                 onChange={ onChange(data) }
-                key={ idx }/>
+                key={ `role${ idx}` }/>
 
         }
 
         case portfolio.types.responsibility : {
 
-            return <ChipAutoComplete
+            return <TextChipAutoComplete
                 label={ data.label }
                 value={ data.value }
                 onChange={ onChange(data) }
-                key={ idx }/>
+                key={ `responsibility${ idx}` }/>
         }
 
         case portfolio.types.tool : {
 
-            return <ChipAutoComplete
+            return <TextChipAutoComplete
                 label={ data.label }
                 value={ data.value }
                 onChange={ onChange(data) }
-                key={ idx }/>
+                key={ `tool${ idx }` }/>
         }
 
         case portfolio.default: {

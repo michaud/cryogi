@@ -8,7 +8,7 @@ import {
     DateTimePicker,
 } from '@material-ui/pickers';
 
-const DateTimeSelector = ({ onChange, label }) => {
+const DateTimeSelector = ({ onChange, label, params={} }) => {
 
     const [selectedDate, setSelectedDate] = useState(Date.now());
     const classes = formStyles();
@@ -22,6 +22,7 @@ const DateTimeSelector = ({ onChange, label }) => {
     return (
         <MuiPickersUtilsProvider utils={ DateFnsUtils }>
             <DateTimePicker
+                { ...params }
                 label={ label }
                 inputVariant="outlined"
                 className={ classes.textField }

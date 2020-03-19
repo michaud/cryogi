@@ -2,7 +2,7 @@ import { namedNode } from "@rdfjs/data-model";
 import { rdf } from 'rdf-namespaces';
 import ulog from 'ulog';
 
-import saveElement from "@golfservices/saveElement";
+import saveElement from "@services/saveElement";
 import { addField } from "./addField";
 
 const log = ulog('setField');

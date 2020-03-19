@@ -7,7 +7,7 @@
         "rdf": "<http://www.w3.org/1999/02/22-rdf-syntax-ns#>",
         "as": "https://www.w3.org/ns/activitystreams#",
         "terms": "http://purl.org/dc/terms/",
-        "portfolio": "https://michaud.inrupt.net/public/ont/portfolio",
+        "portfolio": "https://michaud.inrupt.net/public/ont/portfolio/",
         "me": "https://michaud.inrupt.net/profile/card#me"
     },
     "label": "Screenshot",
@@ -25,6 +25,7 @@
             "predicate": "screenshotDescription",
             "type": "https://schema.org/Text",
             "label": "Description",
+            "required": false,
             "value": ""
         },
         {

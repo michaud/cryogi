@@ -1,7 +1,8 @@
 import { rdf } from 'rdf-namespaces';
 import ulog from 'ulog';
 
-import saveElement from '@golfservices/saveElement';
+import saveElement from '@services/saveElement';
+import portfolio from '@constants/portfolio-namespace';
 
 const log = ulog('addField');
 
@@ -19,85 +20,35 @@ export const addField = ({
 
     switch(field.type) {
 
-        case golf.types.text : {
+        case portfolio.types.text : {
 
             ref.addLiteral(predicate, data.value);
 
             break;
         }
 
-        case golf.types.integer : {
-
-            ref.addLiteral(predicate, parseInt(data.value));
+        case portfolio.types.string : {
+debugger
+            ref.addLiteral(predicate, data.value);
 
             break;
         }
 
-        case golf.types.string : {
+        case portfolio.types.dateTime : {
 
             ref.addLiteral(predicate, data.value);
 
             break;
         }
 
-        case golf.types.double : {
+        case portfolio.classes.Project : {
 
-            ref.addLiteral(predicate, data.value || 0);
+            const projects = data.value;
 
-            break;
-        }
-
-        case golf.types.dateTime : {
-
-            ref.addLiteral(predicate, data.value);
-
-            break;
-        }
-
-        case golf.types.nonNegativeInteger : {
-
-            ref.addLiteral(predicate, parseInt(data.value));
-
-            break;
-        }
-
-        // case golf.classes.Club: {
-
-        //     if(predicate === golf.properties.clubType) {
-
-        //         ref.addRef(golf.properties.clubType, data.value.iri);
-        //     }
-        //     if(predicate === golf.properties.strokeClub) {
-
-        //         ref.addRef(golf.properties.strokeClub, data.value.iri);
-        //     }
-            
-        //     break;
-        // }
-
-        // case golf.classes.Bag : {
-
-        //     const bagRef = doc.addSubject();
-        //     bagRef.addRef(rdf.type, golf.classes.Bag);
-
-        //     const bag = data.value;
-
-        //     bag.clubs.value.forEach(club => {
+            projects.forEach(project => {
                 
-        //         const elRef = saveElement({
-        //             element: club,
-        //             doc,
-        //             type: golf.classes.Club
-        //         })
-            
-        //         bagRef.addRef(golf.properties.clubs, elRef.asRef());
-        //     });
-
-        //     ref.addRef(golf.properties.gameBag, bagRef.asRef());
-
-        //     break;
-        // }
-
+            });
+        }
         // case golf.classes.Course : {
 
         //     const course = data.value;
@@ -220,7 +171,7 @@ export const addField = ({
 
         default : {
 
-            log.error('do not know this field', field);
+            log.error('do not know this field', field, shape, data);
 
             break;
         }
