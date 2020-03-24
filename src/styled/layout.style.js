@@ -47,6 +47,15 @@ export const FlexToolRight = styled.div`
 
 export const GridContainer = styled.div`
     display: grid;
-    grid-template-columns: ${ props => props.cols ? prop.cols : '1fr 1fr' };
+    grid-template-columns: ${ props => props.cols ? props.cols : '1fr' };
+    grid-template-rows: repeat(auto-fill, ${ props => props.rowHeight ? props.rowHeight : 'auto' });
     gap: 2rem;
+
+    @media (min-width: 600px) {
+        grid-template-columns: ${ props => props.cols ? props.cols : '1fr 1fr' };
+    }
+
+    @media (min-width: 900px) {
+        grid-template-columns: ${ props => props.cols ? props.cols : '1fr 1fr 1fr' };
+    }
 `;

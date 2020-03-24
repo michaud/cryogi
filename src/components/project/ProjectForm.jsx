@@ -71,7 +71,7 @@ const ProjectForm = ({ item, onSave, label }) => {
                 // disabled={ !canSave.can }
                 onClick={ saveProjectHandler }
                 className={ classes.button }
-                color="primary">Save</Button>
+                color="primary">Save project</Button>
         </div>
     );
 };

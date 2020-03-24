@@ -69,6 +69,7 @@ const updateInList = (list, dataList) => {
 const useDataList = (publicTypeIndex, type, fileName) => {
 
     const [reload, setReload] = useState(false);
+    const [extraData, setExtraData] = useState();
     const [listData, setListData] = useState({ list: [], doc: undefined });
     const [id, setId] = useState();
     const [isError, setIsError] = useState();
@@ -122,7 +123,8 @@ const useDataList = (publicTypeIndex, type, fileName) => {
                                 type,
                                 typeShape[type],
                                 id,
-                                url
+                                url,
+                                extraData
                             );
 
                             if(id) list = updateInList(list, listData);
@@ -163,12 +165,12 @@ const useDataList = (publicTypeIndex, type, fileName) => {
 
         return () => { didCancel = true; }
 
-    }, [publicTypeIndex.doc, reload]);
+    }, [publicTypeIndex.doc, extraData, reload]);
 
     return [{ listData, isLoading, isError }, (id) => {
         setId(id);
         setReload(true);
-    }];
+    }, setExtraData];
 };
 
 export default useDataList;

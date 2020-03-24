@@ -1,0 +1,68 @@
+.c-project-summary {
+
+    position: relative;
+    overflow: hidden;
+
+    height: 10rem;
+
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    box-shadow: 4px 2px 10px rgba(8, 1, 129, 0.15);
+
+    .c-project-summary__content {
+
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+
+        align-items: flex-end;
+
+        .fields {
+
+            display: flex;
+            width: 100%;
+            background-color: rgba(4, 0, 77, 0.15);
+            text-shadow: 2px 2px 1px rgba(255, 255, 255, .6);
+            min-height: 3.6875rem;
+
+            .summary-fields {
+
+                padding: 1rem;
+                flex-grow: 1;
+            }
+
+            .actions {
+
+
+                flex-grow: 0;
+            }
+        }
+    }
+
+    > .img {
+
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+
+        img {
+
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 100%;
+            transform: translate(-50%, 0);
+            z-index: 0;
+        }
+    }
+
+}

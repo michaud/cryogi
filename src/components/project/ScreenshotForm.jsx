@@ -73,7 +73,7 @@ const ScreenshotForm = ({ item, onAdd, label }) => {
                 // disabled={ !canSave.can }
                 onClick={ addHandler }
                 className={ classes.button }
-                color="primary">Add</Button>
+                color="primary">Add shot</Button>
         </div>
     );
 };

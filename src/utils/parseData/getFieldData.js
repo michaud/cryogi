@@ -35,7 +35,13 @@ const getFieldData = (shape, doc, data, ...rest) => field => {
         }
 
         case portfolio.classes.Project: {
+            
+            if(field.predicate === 'projects') {
+                const [,,projectData] = rest;
+                // console.log('data:', data)
+                // console.log('projectData:', projectData)
 
+            }
             fieldData = getTypeData[type](doc)(data, label, fieldValue);
 
             break;
