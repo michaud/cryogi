@@ -9,6 +9,12 @@ import getFieldValue from '@utils/getFieldValue';
 
 import Button from '@material-ui/core/Button';
 
+import {
+    FlexContainer,
+    FlexItem,
+    FlexItemRight
+} from '@styled/layout.style';
+
 import formStyles from '@styled/form.style';
 
 const ScreenshotForm = ({ item, onAdd, label }) => {
@@ -65,15 +71,27 @@ const ScreenshotForm = ({ item, onAdd, label }) => {
     }
 
     return (
-        <div>
+        <div className="c-box">
             <h4>{ label }</h4>
             { fields }
-            <Button
-                variant="contained"
-                // disabled={ !canSave.can }
-                onClick={ addHandler }
-                className={ classes.button }
-                color="primary">Add shot</Button>
+            <FlexContainer>
+                <FlexItem>
+                    <Button
+                        variant="contained"
+                        // disabled={ !canSave.can }
+                        onClick={ addHandler }
+                        className={ classes.button }
+                        color="primary">Add shot</Button>
+                </FlexItem>
+                <FlexItemRight>
+                    {/* <Button
+                        variant="contained"
+                        // disabled={ !canSave.can }
+                        onClick={ addHandler }
+                        className={ classes.button }
+                        color="primary">Add shot</Button> */}
+                </FlexItemRight>
+            </FlexContainer>
         </div>
     );
 };

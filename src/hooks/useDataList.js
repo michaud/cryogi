@@ -43,7 +43,7 @@ const getListFromDoc = async (
         const item = parseFields(shape, doc, ...rest)(itemRef);
 
         return ({
-            item,
+            ...item,
             doc
         })
     });
@@ -53,10 +53,10 @@ const getListFromDoc = async (
 
 const updateInList = (list, dataList) => {
 
-    const updatedRef = list[0].item.iri;
+    const updatedRef = list[0].iri;
 
     const oldIndex = dataList.list.findIndex(data => { 
-        return data.item.iri === updatedRef;
+        return data.iri === updatedRef;
     });
 
     const startItems = dataList.list.slice(0, oldIndex);
@@ -66,7 +66,7 @@ const updateInList = (list, dataList) => {
     return [...startItems, list[0], ...endItems];
 };
 
-const useDataList = (publicTypeIndex, type, fileName) => {
+const useDataList = (type, fileName) => {
 
     const [reload, setReload] = useState(false);
     const [extraData, setExtraData] = useState();
@@ -81,80 +81,57 @@ const useDataList = (publicTypeIndex, type, fileName) => {
 
         const loadData = async () => {
 
-            if (publicTypeIndex.doc) {
+            try {
 
-                try {
+                const listIndex = await initialiseTypeDocument(
+                    type,
+                    `${ paths.APP_DATA_LIST_PATH }${ fileName }`
+                );
 
-                    const listIndex = publicTypeIndex.doc.findSubject(
-                        solid.forClass,
-                        type
+                const url = listIndex.getRef(solid.instance);
+
+                if (typeof url !== 'string') return;
+
+                const doc = await fetchResource(url);
+
+                if(doc !== undefined) {
+
+                    let list = await getListFromDoc(
+                        doc,
+                        type,
+                        typeShape[type],
+                        id,
+                        url,
+                        extraData
                     );
 
-                    if (!listIndex) {
+                    if(id) list = updateInList(list, listData);
 
-                        // If no clubList document is listed in the public type index, create one:
-                        const doc = await initialiseTypeDocument(
-                            type,
-                            `${ paths.APP_DATA_LIST_PATH }${ fileName }`
-                        );
+                    if(!didCancel) setListData({ list, doc });
 
-                        if (doc === null) return;
-                        
-                        if(!didCancel) setListData(state => ({
-                            ...state,
-                            doc
-                        }));
+                } else {
+                    
+                    if(!didCancel) setListData(state => ({
+                        ...state,
+                        doc
+                    }));
+                    
+                    return;
+                }
 
-                        return;
+            } catch (error) { 
 
-                    } else {
+                if(!didCancel) {
 
-                        // If the public type index does list a document, fetch it:
-                        const url = listIndex.getRef(solid.instance);
+                    log.error('error: ', error);
+                    setIsError(error)
+                }
 
-                        if (typeof url !== 'string') return;
+            } finally {
 
-                        const doc = await fetchResource(url);
-
-                        if(doc !== undefined) {
-
-                            let list = await getListFromDoc(
-                                doc,
-                                type,
-                                typeShape[type],
-                                id,
-                                url,
-                                extraData
-                            );
-
-                            if(id) list = updateInList(list, listData);
-
-                            if(!didCancel) setListData({ list, doc });
-
-                        } else {
-                            
-                            if(!didCancel) setListData(state => ({
-                                ...state,
-                                doc
-                            }));
-                            
-                            return;
-                        }
-                    }
-                } catch (error) { 
-
-                    if(!didCancel) {
-
-                        log.error('error: ', error);
-                        setIsError(error)
-                    }
-
-                } finally {
-
-                    if(!didCancel) {
-                        setIsLoading(false);
-                        setReload(false);
-                    }
+                if(!didCancel) {
+                    setIsLoading(false);
+                    setReload(false);
                 }
             }
         };
@@ -165,7 +142,7 @@ const useDataList = (publicTypeIndex, type, fileName) => {
 
         return () => { didCancel = true; }
 
-    }, [publicTypeIndex.doc, extraData, reload]);
+    }, [extraData, reload]);
 
     return [{ listData, isLoading, isError }, (id) => {
         setId(id);

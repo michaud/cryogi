@@ -1,4 +1,4 @@
-import { space } from 'rdf-namespaces';
+import { space, solid } from 'rdf-namespaces';
 import { createDocument } from 'tripledoc';
 
 import fetchProfile from '@services/fetchProfile';
@@ -6,10 +6,17 @@ import fetchPublicTypeIndex from '@services/fetchPublicTypeIndex';
 import addToTypeIndex from '@services/addToTypeIndex';
 
 const initialiseTypeDocument = async (type, relUrl, setupType) => {
-    
+
     const [profile, publicTypeIndex] = await Promise.all([fetchProfile(), fetchPublicTypeIndex()]);
 
     if (profile === null || publicTypeIndex === null) return null;
+
+    const listIndex = publicTypeIndex.findSubject(
+        solid.forClass,
+        type
+    );
+
+    if(listIndex) return listIndex;
 
     const storage = profile.getRef(space.storage);
 
@@ -23,6 +30,7 @@ const initialiseTypeDocument = async (type, relUrl, setupType) => {
     let doc = createDocument(ref);
 
     if(setupType) doc = setupType(doc);
+
 
     await doc.save();
 

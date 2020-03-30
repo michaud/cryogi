@@ -45,17 +45,17 @@ export const FlexToolRight = styled.div`
     text-align: right;
 `;
 
+const generateMediaQueries = (mediaSizes) => {
+
+    return mediaSizes.map(sizes => `@media (min-width: ${ sizes[0] }) {
+        grid-template-columns: ${ sizes[1] };
+    }`);
+};
+
 export const GridContainer = styled.div`
     display: grid;
     grid-template-columns: ${ props => props.cols ? props.cols : '1fr' };
     grid-template-rows: repeat(auto-fill, ${ props => props.rowHeight ? props.rowHeight : 'auto' });
     gap: 2rem;
-
-    @media (min-width: 600px) {
-        grid-template-columns: ${ props => props.cols ? props.cols : '1fr 1fr' };
-    }
-
-    @media (min-width: 900px) {
-        grid-template-columns: ${ props => props.cols ? props.cols : '1fr 1fr 1fr' };
-    }
+    ${ props => props.media && generateMediaQueries(props.media) }
 `;

@@ -12,6 +12,29 @@
 
     box-shadow: 4px 2px 10px rgba(8, 1, 129, 0.15);
 
+    &.linked:after {
+        content: "";
+        display: block;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: .5rem;
+        background: rgb(0, 143, 0);
+    }
+
+    &.selected .img:before {
+
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border: .5rem solid rgba(255,255,255,.5);
+        z-index: 1;
+    }
+
     .c-project-summary__content {
 
         position: absolute;
@@ -27,9 +50,12 @@
 
             display: flex;
             width: 100%;
-            background-color: rgba(4, 0, 77, 0.15);
-            text-shadow: 2px 2px 1px rgba(255, 255, 255, .6);
             min-height: 3.6875rem;
+
+            background-color: rgba(14, 12, 48, 0.4);
+            text-shadow: 2px 2px 8px rgb(8, 11, 103), 2px 2px 8px rgba(0, 0, 0, 0.64);
+            font-weight: bold;
+            color: white;
 
             .summary-fields {
 

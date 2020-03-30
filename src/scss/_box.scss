@@ -1,3 +1,23 @@
 .c-box {
     margin-bottom: 1.5rem;
 }
+
+.c-box--form {
+
+    max-width: 31rem;
+
+    position: relative;
+
+
+    @media (min-width: 1200px) {
+        &:after {
+            content: "";
+            position: absolute;
+            background-color: rgba(0,0,0,.1);
+            top: 0;
+            left: -1.1rem;
+            bottom: 0;
+            width: 2px;  
+        }
+    }
+}

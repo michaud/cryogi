@@ -11,7 +11,7 @@ import getFieldControl from '@utils/getFieldControl';
 import formStyles from '@styled/form.style';
 import getFieldValue from '@utils/getFieldValue';
 
-const ProjectForm = ({ item, onSave, label }) => {
+const ProjectForm = ({ item, onSave }) => {
 
     const [project, setProject] = useState();
     const classes = formStyles();
@@ -63,8 +63,8 @@ const ProjectForm = ({ item, onSave, label }) => {
     }
 
     return (
-        <div>
-            <h4>{ label }</h4>
+        <div className="c-box--form">
+            <h4>{ item ? 'Edit project' : 'Add project' }</h4>
             { fields }
             <Button
                 variant="contained"

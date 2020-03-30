@@ -1,44 +1,55 @@
-import React, {
-    useState,
-    useEffect
-} from 'react';
+import { useState } from 'react';
 
-import portfolio from '@constants/portfolio-namespace';
-import paths from '@constants/paths';
-import saveListResourse from '@services/saveListResourse';
+import { IconButton } from '@material-ui/core';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+import CancelIcon from '@material-ui/icons/Cancel';
+
+import { useAppData } from '@contexts/AppDataProvider';
 
 import PortfolioForm from '@components/portfolio/PortfolioForm';
 import PortfolioList from '@components/portfolio/PortfolioList';
-
-import { GridContainer } from '@styled/layout.style';
 import Switch from '@components/util/Switch';
 
 const ManagePortfolios = ({ portfolios, label, selected, onSelect, onSave }) => {
 
+    const [showAdd, setShowAdd] = useState(false);
+    const { portfolioDataIsLoading } = useAppData();
+
     const handleSelectPortfolio = (portfolio) => onSelect(portfolio);
     const handleSavePortfolio = (portfolio) => onSave(portfolio);
+    const handleShowAdd = () => setShowAdd(state => !state);
+
+    const hasPortfolios = portfolios.length > 0;
 
     return (
-        <div className="c-box">
-            <h2>{ label }</h2>
-            <Switch has={ portfolios.length > 0 }>
-                <>
-                    <GridContainer cols="1fr 1fr">
-                        <PortfolioList
-                            label="Porfolios"
-                            items={ portfolios }
-                            onSelect={ handleSelectPortfolio }/>
-                        <PortfolioForm
-                            label="Add portfolio"
-                            item={ selected && selected.item }
-                            onSave={ handleSavePortfolio }/>
-                    </GridContainer>
-                </>
-                <>
-                    <PortfolioForm
-                        label="Add portfolio"
-                        onSave={ handleSavePortfolio }/>
-                </>
+        <div className="c-panel">
+            <h3 className="c-tool-header">
+                <span>{ label }</span>
+                <span>
+                    { hasPortfolios
+                        ? <IconButton aria-label="edit"
+                            onClick={ handleShowAdd }>
+                            { !showAdd
+                                ? <AddCircleIcon fontSize="large" style={ { color: 'rgb(0, 143, 0)' } } />
+                                : <CancelIcon fontSize="large" style={ { color: 'rgb(0, 143, 0)' } } />
+                            }
+                            </IconButton>
+                        : null
+                    }
+                </span>
+            </h3>
+            <div className="l-elbow">
+            <PortfolioList
+                label="Porfolios"
+                items={ portfolios }
+                onSelect={ handleSelectPortfolio }/>
+            </div>
+            <Switch has={ portfolios.length === 0 || showAdd || selected }>
+                { !portfolioDataIsLoading && <div className="l-elbow"><PortfolioForm
+                    label={ `${ selected ? 'Save' : 'Add'} portfolio` }
+                    item={ selected }
+                    onSave={ handleSavePortfolio }/></div>
+                }
             </Switch>
         </div>
     );

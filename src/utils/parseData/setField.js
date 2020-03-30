@@ -4,6 +4,7 @@ import ulog from 'ulog';
 
 import saveElement from "@services/saveElement";
 import { addField } from "./addField";
+import portfolio from "@constants/portfolio-namespace";
 
 const log = ulog('setField');
 
@@ -14,35 +15,35 @@ export const setField = ({ field, shape, data, element, ref, doc }) => {
 
     switch(field.type) {
 
-        case golf.types.text : {
+        case portfolio.types.text : {
 
             ref.setLiteral(predicate, data.value);
 
             break;
         }
 
-        case golf.types.integer : {
+        case portfolio.types.integer : {
 
             ref.setLiteral(predicate, parseInt(data.value));
 
             break;
         }
 
-        case golf.types.double : {
+        case portfolio.types.double : {
 
             ref.setLiteral(predicate, data);
 
             break;
         }
 
-        case golf.types.string: {
+        case portfolio.types.string: {
 
             ref.setLiteral(predicate, data.value);
 
             break;
         }
 
-        case golf.types.nonNegativeInteger : {
+        case portfolio.types.nonNegativeInteger : {
 
             const value = data === undefined ? field.value : data.value;
 
@@ -51,9 +52,16 @@ export const setField = ({ field, shape, data, element, ref, doc }) => {
             break;
         }
 
-        case golf.types.dateTime: {
+        case portfolio.types.dateTime: {
 
-            //TODO setfield implement golf.types.dateTime
+            //TODO setfield implement portfolio.types.dateTime
+
+            break;
+        }
+
+        case portfolio.classes.Project: {
+
+            data.value.map(val => ref.addRef(predicate, val));
 
             break;
         }

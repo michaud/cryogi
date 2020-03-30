@@ -2,18 +2,13 @@ import React, { useEffect, useState } from 'react';
 
 import update from 'immutability-helper';
 
-import setupDataObject from '@utils/setupDataObject';
-import projectShape from '@contexts/shapes/project-shape.json';
-import getFieldControl from '@utils/getFieldControl';
-
-import formStyles from '@styled/form.style';
-
 import ScreenshotForm from './ScreenshotForm';
 import ScreenshotList from './ScreenshotList';
 
 const ManageScreenshots = ({ items, onChange, label }) => {
 
     const [screenshots, setScreenshots] = useState([]);
+    const [selected, setSetSelected] = useState();
 
     useEffect(() => {
 
@@ -25,9 +20,10 @@ const ManageScreenshots = ({ items, onChange, label }) => {
     }, [items])
 
 
-    const onAddHandler = (shot) => {
+    const onAddHandler = shot => {
 
         setScreenshots(state => {
+            
             const newState = update(state, { $push: [shot]});
             
             onChange(newState);
@@ -37,11 +33,16 @@ const ManageScreenshots = ({ items, onChange, label }) => {
         });
     }
 
+    const onSelectHandler = shot => {
+
+        setSetSelected(shot);
+    }
+
     return (
         <div>
             <h5>{ label }</h5>
-            <ScreenshotList items={ screenshots }/>
-            <ScreenshotForm onAdd={ onAddHandler } />
+            <ScreenshotForm item={ selected } onAdd={ onAddHandler }/>
+            <ScreenshotList items={ screenshots } onSelect={ onSelectHandler }/>
         </div>
     );
 };

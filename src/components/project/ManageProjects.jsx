@@ -10,21 +10,23 @@ import portfolio from '@constants/portfolio-namespace';
 
 import ProjectForm from '@components/project/ProjectForm';
 import ProjectList from '@components/project/ProjectList';
+import { IconButton } from '@material-ui/core';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+import CancelIcon from '@material-ui/icons/Cancel';
 
-import Switch from '@components/util/Switch';
+import { GridContainer } from '@styled/layout.style';
 
-const ManageProjects = ({ items, label, selected, onSelect }) => {
+const ManageProjects = ({ projects:items, label, selected, linked, onLink, onSelect }) => {
 
     const [projects, setProjects] = useState([]);
-    const [selectedProjects, setSelectedProjects] = useState();
+    const [linkedProjects, setLinkedProjects] = useState();
+    const [showAdd, setShowAdd] = useState(false);
+    const [selectedProject, setSelectedProject] = useState();
 
     const {
-        projectData,
-        isLoading,
-        isError,
+        projectDataIsLoading,
         reloadProjects
     } = useAppData();
-    
     
     useEffect(() => {
         
@@ -34,12 +36,32 @@ const ManageProjects = ({ items, label, selected, onSelect }) => {
             
             if(items) {
                 
-                if(!didCancel) setProjects(items);
-                
-            } else if(projectData) {
-                
-                if(!didCancel) setProjects(projectData.list);
-                setSelectedProjects(selected);
+                if(!didCancel) {
+                    
+                    setProjects(items);
+                    setLinkedProjects(linked);
+                    
+                    setSelectedProject(state => {
+
+                        if(state && state.iri === selected) {
+                            setShowAdd(false);
+                            return undefined;
+                        }
+
+                        const found = projects.find(item => item.iri === selected);
+
+                        if(!found) {
+                            setShowAdd(false);
+
+                            return undefined;
+                        }
+
+                        setShowAdd(true);
+
+                        return found;
+                    });
+
+                }
             }
         }
         
@@ -47,7 +69,7 @@ const ManageProjects = ({ items, label, selected, onSelect }) => {
         
         return () => { didCancel = true; }
         
-    }, [items, projectData.doc, selected]);
+    }, [items, linked, selected]);
 
     const onSaveProjectHandler = async (item) => {
 
@@ -62,26 +84,54 @@ const ManageProjects = ({ items, label, selected, onSelect }) => {
         reloadProjects();
     };
 
-    const handleOnSelectProject = (iri) => {
+    const handleOnLinkProject = iri => onLink(iri);
+    const handleOnSelectProject = iri => {
+
         onSelect(iri);
-    }
-    
+    };
+
+    const handleShowAdd = () => {
+
+        if(selectedProject) onSelect(selectedProject.iri);
+        setShowAdd(state => !state);
+    };
+
+    const hasProjects = projects.length > 0;
+    const showForm = !projectDataIsLoading && (!hasProjects || showAdd );
+  
     return (
-        <div>
-            <h3>{ label }</h3>
-            <Switch has={ projectData.list.length > 0 }>
-                <>
-                    <ProjectList onSelect={ handleOnSelectProject }
-                        selected={ selectedProjects }
-                        items={ projects }/>
-                    <ProjectForm
-                        label="Add project"
-                        onSave={ onSaveProjectHandler }/>
-                </>
-                <ProjectForm
-                    label="Add project"
+        <div className="c-panel">
+            <h3 className="c-tool-header">
+                <span>{ label }</span>
+                <span>
+                    { hasProjects
+                        ? <IconButton aria-label="edit"
+                            onClick={ handleShowAdd }>
+                            { !showForm
+                                ? <AddCircleIcon fontSize="large" style={ { color: 'rgb(0, 143, 0)' } } />
+                                : <CancelIcon fontSize="large" style={ { color: 'rgb(0, 143, 0)' } } />
+                            }
+                        </IconButton>
+                    : null
+                    }
+                </span>
+            </h3>
+            <GridContainer className="l-elbow"
+                media={[
+                    ['600px',`${ showAdd || selectedProject  ? '1fr' : '1fr' }`],
+                    ['1300px',`${ showAdd || selectedProject ? '1fr 21rem' : '1fr 21rem' }`]
+                ]}>
+                <ProjectList
+                    onLink={ handleOnLinkProject }
+                    onSelect={ handleOnSelectProject }
+                    selected={ selected }
+                    linked={ linkedProjects }
+                    items={ projects }/>
+                {  showForm && <ProjectForm
+                    item={ selectedProject }
                     onSave={ onSaveProjectHandler }/>
-            </Switch>
+                }
+            </GridContainer>
         </div>
     );
 };

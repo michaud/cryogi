@@ -9,6 +9,12 @@ import portfolioShape from '@contexts/shapes/portfolio-shape.json';
 import getFieldControl from '@utils/getFieldControl';
 import getFieldValue from '@utils/getFieldValue';
 
+import {
+    FlexContainer,
+    FlexItem,
+    FlexItemRight
+} from '@styled/layout.style';
+
 import formStyles from '@styled/form.style';
 
 const PortfolioForm = ({ item, onSave, label }) => {
@@ -66,18 +72,27 @@ const PortfolioForm = ({ item, onSave, label }) => {
 
     return (
         <div>
-            <h3 className="c-tool-header">
-                <span>{ label }</span>
-                <span>
+            <h4>{ label }</h4>
+            { portfolioFields }
+            <FlexContainer>
+                <FlexItem>
+                    { item ? <Button
+                        variant="contained"
+                        // disabled={ !canSave.can }
+                        onClick={ savePortfolioHandler }
+                        className={ classes.button }
+                        color="primary">Delete</Button> : null
+                    }
+                </FlexItem>
+                <FlexItemRight>
                     <Button
                         variant="contained"
                         // disabled={ !canSave.can }
                         onClick={ savePortfolioHandler }
                         className={ classes.button }
                         color="primary">Save</Button>
-                </span>
-            </h3>
-            { portfolioFields }
+                </FlexItemRight>
+            </FlexContainer>
         </div>
     );
 };

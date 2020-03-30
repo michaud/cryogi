@@ -1,0 +1,12 @@
+.c-panel {
+
+    background-color: white;
+    border-radius: 4px;
+    min-height: 19rem;
+    > div {
+        margin-bottom: 1rem;
+    }
+    > :last-child {
+        margin-bottom: 0;
+    }
+}

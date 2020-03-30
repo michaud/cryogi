@@ -7,16 +7,19 @@ import iupdate from 'immutability-helper';
 
 import Head from 'next/head';
 
+import portfolio from '@constants/portfolio-namespace';
 import { useAppData } from '@contexts/AppDataProvider';
 
 import ManageProjects from '@components/project/ManageProjects';
 import ManagePortfolios from '@components/portfolio/ManagePortfolios';
 
 import { PageContainer } from '@styled/page.style';
+import saveListResourse from '@services/saveListResourse';
+import { GridContainer } from '@styled/layout.style';
+import paths from '@constants/paths';
 
 const Editor = () => {
 
-    
     const {
         portfolioData,
         isLoading: portfolioIsLoading,
@@ -28,7 +31,8 @@ const Editor = () => {
         reloadProjects
     } = useAppData();
     
-    const [selectedProjects, setSelectedProjects] = useState();
+    const [linkedProjects, setLinkedProjects] = useState();
+    const [selectedProject, setSelectedProject] = useState();
     const [selectedPortfolio, setSelectedPortfolio] = useState();
     const [portfolios, setPortfolios] = useState([]);
     const [projects, setProjects] = useState([]);
@@ -37,7 +41,7 @@ const Editor = () => {
 
         let isCancel = false;
 
-        const update = ()=> {
+        const update = () => {
 
             if(portfolioData) {
 
@@ -47,78 +51,80 @@ const Editor = () => {
             if(projectData && !isCancel) {
 
                 setProjects(projectData.list);
+            }
 
-                let removeProject = undefined;
-
-                setSelectedPortfolio(state => {
-                    
-                    const selectedProjectData = [];
-
-                    selectedProjects ? selectedProjects
-                        .map(selProject => {
-
-                            const candidateProject = projectData.list
-                                .find(proj => proj.item.iri === selProject);
-                            const testProjectId = selectedProjectData
-                                .findIndex(test => test.item.iri === candidateProject.item.iri);
-
-                            const isUniqueProject = testProjectId === -1;
-
-                            if(isUniqueProject) {
-                                selectedProjectData.push(candidateProject);
-                            } else {
-                                removeProject = candidateProject;
-                            }
-                            
-                        }) : undefined;
-
-                        if(removeProject) setSelectedProjects(state => state
-                            .filter(proj => proj !== removeProject.item.iri));
-    
-                        return state
-                            ? iupdate(state, {
-                                item: {
-                                    projects: {
-                                        value : { $set : selectedProjectData }
-                                    }
-                                }
-                            }) : undefined;
-                    });
-                }
+            if(!isCancel) setSelectedPortfolio(state => state ? iupdate(state, {
+                    projects: { value: { $set: linkedProjects }}}
+                ) : undefined);
         }
 
         update();
 
         return () => { isCancel = true; }
 
-    }, [portfolioData, projectData, selectedProjects]);
+    }, [portfolioData, projectData, linkedProjects]);
 
-    const findSelectedProjects = (projects, portfolio) => {
-
-        const selectedProjects = portfolio.item.projects.value.map(project => {
-
-            return projects.find(projectObj => projectObj.item.iri === project.item.iri);
-        })
-        return selectedProjects;
-    }
+    const findLinkedProjects = (projects, portfolio) => portfolio.projects.value
+        .map(project => projects
+            .find(projectObj => projectObj.iri === project).iri);
 
     const handleSelectPortfolio = (portfolio) => {
 
         setSelectedPortfolio(state => {
 
-            if(!portfolio) return undefined;
-            const projects = findSelectedProjects(projects, portfolio);
+            if(!portfolio) {
 
-            if(projectData.doc) setSelectedProjects(projects);
+                setLinkedProjects();
+
+                return undefined;
+            }
+
+            if(projects) {
+
+                const gatheredProjects = findLinkedProjects(projects, portfolio);
+
+                setLinkedProjects(gatheredProjects);
+            } 
 
             return portfolio;
         });
     };
 
-    const handleSelectProject = (iri) => setSelectedProjects(state => {
+    const handleOnSelectProject = iri => {
         
-        return iupdate(state, { $push: [iri]})
-    });
+        setSelectedProject(state => state === iri ? undefined : iri);
+    }
+
+    const handleLinkProject = iri => {
+
+        const candidateProject = projectData.list.find(proj => proj.iri === iri);
+        const linkedProject = linkedProjects.find(sProj => sProj === candidateProject.iri);
+
+        if(linkedProject) {
+
+            setLinkedProjects(state => {
+    
+                const newState = state.reduce((acc, item) => {
+    
+                    if(item !== linkedProject) {
+    
+                        acc.push(item);
+                    }
+    
+                    return acc;
+    
+                }, []);
+    
+                return newState;
+            });
+
+        } else {
+
+            setLinkedProjects(state => iupdate(state, {
+                $push: [candidateProject.iri]
+            }));
+        }
+    }
 
     const handleSavePortfolio = async (item) => {
 
@@ -140,17 +146,23 @@ const Editor = () => {
         </Head>
         <PageContainer>
             <h1>Portfolio editor</h1>
-            <ManagePortfolios
-                portfolios={ portfolios }
-                label={ 'Portfolios' }
-                selected={ selectedPortfolio }
-                onSelect={ handleSelectPortfolio }
-                onSave={ handleSavePortfolio }/>
-            <ManageProjects
-                projects={ projects }
-                label={ 'Projects' }
-                selected={ selectedProjects }
-                onSelect={ handleSelectProject }/>
+            <GridContainer media={[['600px','1fr 2fr'],['900px','1fr 3fr'], ['1400px','21rem 1fr']]}>
+                <div>
+                <ManagePortfolios
+                    portfolios={ portfolios }
+                    label={ 'Portfolios' }
+                    selected={ selectedPortfolio }
+                    onSelect={ handleSelectPortfolio }
+                    onSave={ handleSavePortfolio }/>
+                </div>
+                <ManageProjects
+                    projects={ projects }
+                    label={ 'Projects' }
+                    selected={ selectedProject }
+                    onSelect={ handleOnSelectProject }
+                    linked={ linkedProjects }
+                    onLink={ handleLinkProject }/>
+            </GridContainer>
         </PageContainer>
         </>
     )

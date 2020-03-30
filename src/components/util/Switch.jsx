@@ -1,9 +1,7 @@
-import React from 'react';
-
 const Switch = ({ has, children }) => {
 
-    if(!children) return 'no children';
-    if(!Array.isArray(children) || children.length < 2) return children;
+    if(!children) return null;
+    if(!Array.isArray(children) || children.length < 2) return has ? children : null;
     if(children.length > 2) console.log('more than two to choose from, using the first two')
 
     const [hasChild, notChild] = children;
@@ -16,6 +14,6 @@ const Switch = ({ has, children }) => {
     }
 
     return null;
-}
+};
 
 export default Switch;
