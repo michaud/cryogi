@@ -95,55 +95,6 @@ export const setField = ({ field, shape, data, element, ref, doc }) => {
             break;
         }
 
-        case portfolio.properties.roles: {
-
-            debugger
-
-            break;
-        }
-
-        case portfolio.properties.responsibilities: {
-
-            debugger
-
-            break;
-        }
-
-        case portfolio.properties.periods: {
-
-            debugger
-
-            break;
-        }
-
-        case portfolio.properties.tools: {
-
-            debugger
-
-            break;
-        }
-
-        case portfolio.properties.technologies: {
-
-            debugger
-
-            break;
-        }
-
-        case portfolio.properties.agency: {
-
-            debugger
-
-            break;
-        }
-
-        case portfolio.properties.screenshots: {
-
-            debugger
-
-            break;
-        }
-
         case portfolio.classes.DatePeriod: {
 
             data.value.forEach(item => ref.setLiteral(predicate, item));
