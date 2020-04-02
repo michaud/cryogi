@@ -10,19 +10,20 @@ import PortfolioForm from '@components/portfolio/PortfolioForm';
 import PortfolioList from '@components/portfolio/PortfolioList';
 import Switch from '@components/util/Switch';
 
-const ManagePortfolios = ({ portfolios, label, selected, onSelect, onSave }) => {
+const ManagePortfolios = ({ portfolios, label, selected, onSelect, onDelete, onSave }) => {
 
     const [showAdd, setShowAdd] = useState(false);
     const { portfolioDataIsLoading } = useAppData();
 
     const handleSelectPortfolio = (portfolio) => onSelect(portfolio);
+    const handleDeletePortfolio = (portfolio) => onDelete && onDelete(portfolio);
     const handleSavePortfolio = (portfolio) => onSave(portfolio);
     const handleShowAdd = () => setShowAdd(state => !state);
 
     const hasPortfolios = portfolios.length > 0;
 
     return (
-        <div className="c-panel">
+        <div className="c-panel c-panel--atlas">
             <h3 className="c-tool-header">
                 <span>{ label }</span>
                 <span>
@@ -48,7 +49,8 @@ const ManagePortfolios = ({ portfolios, label, selected, onSelect, onSave }) => 
                 { !portfolioDataIsLoading && <div className="l-elbow"><PortfolioForm
                     label={ `${ selected ? 'Save' : 'Add'} portfolio` }
                     item={ selected }
-                    onSave={ handleSavePortfolio }/></div>
+                    onSave={ handleSavePortfolio }
+                    onDelete={ handleDeletePortfolio }/></div>
                 }
             </Switch>
         </div>

@@ -14,29 +14,32 @@ const ProjectList = ({ items, label, linked, selected, onLink, onSelect }) => {
     const handleOnLink = iri => onLink(iri);
     const handleOnSelect = iri => onSelect(iri);
 
-    return (
-        <div className="l-bot l-elbow">
-            { label && <h3>{ label }</h3> }
-            <GridContainer media={ gridMediaLayout }>
-            {
-                items.map((project, idx) => {
+    const hasProjects = items.length > 0;
 
-                    const isLinked = linked  === undefined
-                        ? undefined
-                        : linked.findIndex(link => link === project.iri) > -1;
-                    const isSelected = selected === undefined
-                        ? undefined
-                        : selected === project.iri;
-                    return <ProjectSummary key={ idx }
-                        onLink={ handleOnLink }
-                        onSelect={ handleOnSelect }
-                        isSelected={ isSelected }
-                        isLinked={ isLinked }
-                        item={ project }/>
-                })
-            }
-            </GridContainer>
-        </div>
+    return (
+        <>
+            { label && <h3>{ label }</h3> }
+            { hasProjects ? <GridContainer media={ gridMediaLayout }>
+                {
+                    items.map((project, idx) => {
+
+                        const isLinked = linked  === undefined
+                            ? undefined
+                            : linked.findIndex(link => link === project.iri) > -1;
+                        const isSelected = selected === undefined
+                            ? undefined
+                            : selected === project.iri;
+                        return <ProjectSummary key={ idx }
+                            onLink={ handleOnLink }
+                            onSelect={ handleOnSelect }
+                            isSelected={ isSelected }
+                            isLinked={ isLinked }
+                            item={ project }/>
+                    })
+                }
+                </GridContainer>
+             : null }
+        </>
     );
 };
 

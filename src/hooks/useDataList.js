@@ -4,7 +4,7 @@ import ulog from 'ulog';
 
 import { namedNode } from '@rdfjs/data-model';
 
-import initialiseTypeDocument from '@services/initialiseTypeDocument';
+import getTypeInIndex from '@services/getTypeInIndex';
 import fetchResource from '@services/fetchResource';
 import paths from '@constants/paths';
 import parseFields from '@utils/parseData/parseFields';
@@ -83,10 +83,12 @@ const useDataList = (type, fileName) => {
 
             try {
 
-                const listIndex = await initialiseTypeDocument(
+                const listIndex = await getTypeInIndex(
                     type,
                     `${ paths.APP_DATA_LIST_PATH }${ fileName }`
                 );
+
+                if (!listIndex) return;
 
                 const url = listIndex.getRef(solid.instance);
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Chip from '@material-ui/core/Chip';
 import Autocomplete from '@material-ui/lab/Autocomplete';
@@ -13,8 +13,24 @@ const useStyles = makeStyles(theme => ({
 
 const TextChipAutoComplete = ({ value, onChange, defaultItemList = [], label = '' }) => {
 
-    const classes = useStyles();
     const [items, setItems] = useState([]);
+    
+    const classes = useStyles();
+
+    useEffect(() => {
+
+        let isCancel = false;
+
+        const update = () => {
+
+            if(value) setItems(value)
+        }
+
+        update();
+
+        return () => { isCancel = true };
+
+    }, [value])
 
     const handleChange = (event, value) => {
         

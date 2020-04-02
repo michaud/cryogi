@@ -50,7 +50,7 @@ const saveListResourse = async ({
 
     await itemDoc.getDocument().save();
 
-    //add item to list with same identifier as game itself
+    //add item to list with same identifier as resource itself
     const ref = itemDoc.asRef();
     const subject = list.addSubject({ identifier: ref.split('#')[1] });
     const filePath = ref.substring(ref.indexOf(listPath) + listPath.length, ref.indexOf('#'));

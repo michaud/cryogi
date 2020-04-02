@@ -67,6 +67,7 @@ const getFieldControl = ({
             return <DateTimeSelector
                 key={ idx }
                 label={ data.label }
+                value={ data.value }
                 onChange={ onChange(data) }/>
         }
 
@@ -117,13 +118,14 @@ const getFieldControl = ({
         case portfolio.types.technology : {
 
             return <TextChipAutoComplete
-                label={ data.label }
-                value={ data.value }
+            label={ data.label }
+            value={ data.value }
                 onChange={ onChange(data) }
                 key={ `technology${ idx}` }/>
         }
 
         case portfolio.types.role : {
+
             return <TextChipAutoComplete
                 label={ data.label }
                 value={ data.value }

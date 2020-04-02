@@ -10,7 +10,6 @@ const ManagePeriods = ({ items, label, onChange }) => {
         if(items) {
 
             setPeriods(items)
-
         }
 
     }, [items])
@@ -22,6 +21,7 @@ const ManagePeriods = ({ items, label, onChange }) => {
             <PeriodChipAutoComplete
                 items={ items }
                 label={ label }
+                value={ periods }
                 onChange={ onChange }/>
             <div></div>
         </div>

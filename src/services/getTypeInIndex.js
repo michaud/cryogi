@@ -5,20 +5,21 @@ import fetchProfile from '@services/fetchProfile';
 import fetchPublicTypeIndex from '@services/fetchPublicTypeIndex';
 import addToTypeIndex from '@services/addToTypeIndex';
 
-const initialiseTypeDocument = async (type, relUrl, setupType) => {
+const getTypeInIndex = async (type, relUrl, setupType) => {
 
     const [profile, publicTypeIndex] = await Promise.all([fetchProfile(), fetchPublicTypeIndex()]);
 
     if (profile === null || publicTypeIndex === null) return null;
-
-    const listIndex = publicTypeIndex.findSubject(
+    
+    let listIndex = publicTypeIndex.findSubject(
         solid.forClass,
         type
     );
 
     if(listIndex) return listIndex;
-
+    
     const storage = profile.getRef(space.storage);
+    
 
     if (typeof storage !== 'string') return null;
 
@@ -32,11 +33,15 @@ const initialiseTypeDocument = async (type, relUrl, setupType) => {
     if(setupType) doc = setupType(doc);
 
 
-    await doc.save();
+    doc = await doc.save();
+    doc = await addToTypeIndex(publicTypeIndex, doc, type);
 
-    await addToTypeIndex(publicTypeIndex, doc, type);
+    listIndex = publicTypeIndex.findSubject(
+        solid.forClass,
+        type
+    );
 
-    return doc;
+    return listIndex;
 };
 
-export default initialiseTypeDocument;
+export default getTypeInIndex;

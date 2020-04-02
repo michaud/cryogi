@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Chip from '@material-ui/core/Chip';
 import Autocomplete from '@material-ui/lab/Autocomplete';
@@ -18,13 +18,31 @@ const PeriodChipAutoComplete = ({ value, onChange, defaultItemList = [], label =
     const classes = useStyles();
     const [items, setItems] = useState([]);
 
+    useEffect(()=> {
+
+        let isCancel = false;
+
+        const update = () => {
+
+            if(!isCancel) {
+
+                if(value) setItems(value);
+            }
+        };
+
+        update();
+
+        return () => { isCancel = true };
+    });
+
     const handleChange = (event, value) => {
         
         setItems(value);
         onChange(value);
-    }
+    };
 
     const placeholder = items.length > 0 ? 'next' : label;
+
     return (
         <Autocomplete
             multiple

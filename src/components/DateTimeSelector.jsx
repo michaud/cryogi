@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import formStyles from '@styled/form.style';
 
@@ -8,9 +8,26 @@ import {
     DateTimePicker,
 } from '@material-ui/pickers';
 
-const DateTimeSelector = ({ onChange, label, params={} }) => {
+const DateTimeSelector = ({ onChange, value, label, params={} }) => {
 
     const [selectedDate, setSelectedDate] = useState(Date.now());
+
+    useEffect(() => {
+
+        let isCancel = false;
+
+        const update = () => {
+
+            if(value) {
+                if(!isCancel) setSelectedDate(value);
+            }
+        }
+
+        update();
+
+        return () => { isCancel = true };
+    })
+
     const classes = formStyles();
 
     const handleDateChange = date => {

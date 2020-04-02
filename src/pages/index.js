@@ -1,11 +1,9 @@
 import Head from 'next/head'
 import Link from 'next/link';
-import Login from '@components/login';
+import Authentication from '@components/Authentication';
 import { useAuth } from '@contexts/AuthProvider';
 
 const Home = () => {
-
-    const { webId } = useAuth();
 
     return (
         <>
@@ -16,8 +14,8 @@ const Home = () => {
 
             <div className="container">
                 <header>
-                    <Login />
-                    <Link href="/portfolio/editor">
+                    <Authentication />
+                    <Link href="/portfolio/editPortfolio">
                         <a>portfolio editor</a>
                     </Link>
                 </header>

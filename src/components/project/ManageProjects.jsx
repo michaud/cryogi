@@ -3,7 +3,6 @@ import React, {
     useEffect
 } from 'react';
 
-import saveListResourse from '@services/saveListResourse';
 import paths from '@constants/paths';
 import { useAppData } from '@contexts/AppDataProvider';
 import portfolio from '@constants/portfolio-namespace';
@@ -14,9 +13,11 @@ import { IconButton } from '@material-ui/core';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import CancelIcon from '@material-ui/icons/Cancel';
 
+import saveListResourse from '@services/saveListResourse';
+
 import { GridContainer } from '@styled/layout.style';
 
-const ManageProjects = ({ projects:items, label, selected, linked, onLink, onSelect }) => {
+const ManageProjects = ({ projects:items, label, selected, linked, onLink, onSelect, onDelete }) => {
 
     const [projects, setProjects] = useState([]);
     const [linkedProjects, setLinkedProjects] = useState();
@@ -24,6 +25,7 @@ const ManageProjects = ({ projects:items, label, selected, linked, onLink, onSel
     const [selectedProject, setSelectedProject] = useState();
 
     const {
+        projectData,
         projectDataIsLoading,
         reloadProjects
     } = useAppData();
@@ -71,7 +73,7 @@ const ManageProjects = ({ projects:items, label, selected, linked, onLink, onSel
         
     }, [items, linked, selected]);
 
-    const onSaveProjectHandler = async (item) => {
+    const handleSaveProject = async (item) => {
 
         await saveListResourse({
             resource: item,
@@ -96,11 +98,13 @@ const ManageProjects = ({ projects:items, label, selected, linked, onLink, onSel
         setShowAdd(state => !state);
     };
 
+    const handleDeleteProject = project => onDelete && onDelete(project);
+
     const hasProjects = projects.length > 0;
     const showForm = !projectDataIsLoading && (!hasProjects || showAdd );
   
     return (
-        <div className="c-panel">
+        <div className="c-panel c-panel--atlas">
             <h3 className="c-tool-header">
                 <span>{ label }</span>
                 <span>
@@ -129,7 +133,8 @@ const ManageProjects = ({ projects:items, label, selected, linked, onLink, onSel
                     items={ projects }/>
                 {  showForm && <ProjectForm
                     item={ selectedProject }
-                    onSave={ onSaveProjectHandler }/>
+                    onSave={ handleSaveProject }
+                    onDelete={ handleDeleteProject }/>
                 }
             </GridContainer>
         </div>

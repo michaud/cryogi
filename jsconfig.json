@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
         "baseUrl": ".",
+        "jsx": "react",
         "paths": {
             "@components/*": [
                 "./src/components/*"
@@ -33,5 +34,6 @@
                 "./src/styled/*"
             ],
         }
-    }
+    },
+    "exclude": ["node_modules", "build", "out", "notes","public"]
 }

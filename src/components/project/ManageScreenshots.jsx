@@ -12,37 +12,64 @@ const ManageScreenshots = ({ items, onChange, label }) => {
 
     useEffect(() => {
 
-        if(items) {
-
-            setScreenshots(items)
-        }
+        if(items) setScreenshots(items);
 
     }, [items])
 
 
-    const onAddHandler = shot => {
+    const handleAdd = shot => {
 
         setScreenshots(state => {
             
             const newState = update(state, { $push: [shot]});
             
             onChange(newState);
-
+            setSetSelected();
             return newState;
 
         });
-    }
+    };
 
-    const onSelectHandler = shot => {
+    const handleSelect = shot => setSetSelected(shot);
+    const handleDelete = shot => {
+        
+        setScreenshots(state => {
 
-        setSetSelected(shot);
-    }
+            const shotIndex = state.findIndex(stateShot => shot.iri === stateShot.iri);
+            const newState = update(state, { $splice: [[shotIndex, 1]] });
+            onChange(newState);
+            setSetSelected();
+
+            return newState;
+        });
+    };
+
+    const handleSave = shot => {
+
+        setScreenshots(state => {
+
+            const shotIndex = state.findIndex(stateShot => shot.iri === stateShot.iri);
+
+            const newState = update(state, {[shotIndex]: {$set: shot }});
+
+            onChange(newState);
+            setSetSelected();
+            return newState;
+        })
+    };
 
     return (
         <div>
             <h5>{ label }</h5>
-            <ScreenshotForm item={ selected } onAdd={ onAddHandler }/>
-            <ScreenshotList items={ screenshots } onSelect={ onSelectHandler }/>
+            <ScreenshotForm
+                item={ selected }
+                onAdd={ handleAdd }
+                onDelete={ handleDelete }
+                onSave={ handleSave }/>
+            <ScreenshotList
+                items={ screenshots }
+                onSelect={ handleSelect }
+                onDelete={ handleDelete }/>
         </div>
     );
 };

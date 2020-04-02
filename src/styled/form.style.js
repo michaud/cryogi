@@ -148,6 +148,13 @@ const formStyles = makeStyles(theme => ({
                 // border: '1px solid rgba(55, 116, 0,.2)'
             }
         }
+    },
+    dialogTitle: {
+        paddingBottom: 0
+    },
+    dialogContent: {
+        paddingTop: 0,
+        paddingBottom: 0
     }
 }));
 

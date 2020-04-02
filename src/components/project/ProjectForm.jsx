@@ -10,8 +10,9 @@ import getFieldControl from '@utils/getFieldControl';
 
 import formStyles from '@styled/form.style';
 import getFieldValue from '@utils/getFieldValue';
+import { FlexContainer, FlexItem, FlexItemRight } from '@styled/layout.style';
 
-const ProjectForm = ({ item, onSave }) => {
+const ProjectForm = ({ item, onSave, onDelete }) => {
 
     const [project, setProject] = useState();
     const classes = formStyles();
@@ -32,7 +33,6 @@ const ProjectForm = ({ item, onSave }) => {
     
     const onChangeField = fieldDef => (...args)  => {
 
-
         const value = getFieldValue(fieldDef, [...args]);
 
         setProject(state => update(state, {
@@ -40,7 +40,12 @@ const ProjectForm = ({ item, onSave }) => {
         }));
     };
 
-    const saveProjectHandler = () => onSave(project);
+    const handleSaveProject = () => {
+        
+        onSave(project);
+    };
+
+    const handleDeleteProject = () => onDelete && onDelete(project);
 
     const fields = [];
     
@@ -66,12 +71,25 @@ const ProjectForm = ({ item, onSave }) => {
         <div className="c-box--form">
             <h4>{ item ? 'Edit project' : 'Add project' }</h4>
             { fields }
-            <Button
-                variant="contained"
-                // disabled={ !canSave.can }
-                onClick={ saveProjectHandler }
-                className={ classes.button }
-                color="primary">Save project</Button>
+            <FlexContainer>
+                <FlexItem>
+                    { item ? <Button
+                        variant="contained"
+                        // disabled={ !canSave.can }
+                        onClick={ handleDeleteProject }
+                        className={ classes.button }
+                        color="primary">Delete</Button> : null
+                    }
+                </FlexItem>
+                <FlexItemRight>
+                    <Button
+                        variant="contained"
+                        // disabled={ !canSave.can }
+                        onClick={ handleSaveProject }
+                        className={ classes.button }
+                        color="primary">Save</Button>
+                </FlexItemRight>
+            </FlexContainer>
         </div>
     );
 };

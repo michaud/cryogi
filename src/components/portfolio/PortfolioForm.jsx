@@ -17,7 +17,7 @@ import {
 
 import formStyles from '@styled/form.style';
 
-const PortfolioForm = ({ item, onSave, label }) => {
+const PortfolioForm = ({ item, onSave, onDelete, label }) => {
 
     const [portfolio, setPortfolio] = useState();
     
@@ -36,7 +36,7 @@ const PortfolioForm = ({ item, onSave, label }) => {
 
     }, [item])
 
-    const savePortfolioHandler = () => {
+    const handleSavePortfolio = () => {
 
         onSave(portfolio)
     };
@@ -50,6 +50,7 @@ const PortfolioForm = ({ item, onSave, label }) => {
         }));
     };
 
+    const handleDeletePortfolio = () => onDelete && onDelete(portfolio);
     const portfolioFields = [];
     
     let index = 0;
@@ -79,7 +80,7 @@ const PortfolioForm = ({ item, onSave, label }) => {
                     { item ? <Button
                         variant="contained"
                         // disabled={ !canSave.can }
-                        onClick={ savePortfolioHandler }
+                        onClick={ handleDeletePortfolio }
                         className={ classes.button }
                         color="primary">Delete</Button> : null
                     }
@@ -88,7 +89,7 @@ const PortfolioForm = ({ item, onSave, label }) => {
                     <Button
                         variant="contained"
                         // disabled={ !canSave.can }
-                        onClick={ savePortfolioHandler }
+                        onClick={ handleSavePortfolio }
                         className={ classes.button }
                         color="primary">Save</Button>
                 </FlexItemRight>

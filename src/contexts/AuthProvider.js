@@ -19,6 +19,7 @@ const AuthProvider = ({ children }) => {
     const { pathname, events } = useRouter();
     const [webId, setWebId] = useState();
     const [userName, setUserName] = useState();
+    const [isLoading, setIsLoading] = useState(true);
 
     const setUserData = async () => {
 
@@ -42,19 +43,25 @@ const AuthProvider = ({ children }) => {
             if (!session) {
 
                 setWebId(null)
+                setIsLoading(false);
 
             } else {
 
                 setUserData();
+                setIsLoading(false);
             }
 
         } catch (err) {
 
+            setIsLoading(false);
             console.error(err)
         }
     };
 
     useEffect(() => {
+
+        setIsLoading(true);
+
         getWebId();
     }, [pathname]);
 
@@ -97,6 +104,7 @@ const AuthProvider = ({ children }) => {
             webId,
             userName,
             userData: data,
+            isLoading,
             login
         } }>{ children }</AuthContext.Provider>
     )

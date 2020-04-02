@@ -1,11 +1,6 @@
-const getStringList = predicate =>  (data, label, defaultValue) => {
-
-    const value = data ? data.getLiteral(predicate) : defaultValue;
-
-    return ({
-        label,
-        value: value.split(',')
-    })
-};
+const getStringList = predicate => (data, label, defaultValue) => ({
+    label,
+    value: data ? data.getAllLiterals(predicate) : defaultValue
+});
 
 export default getStringList;

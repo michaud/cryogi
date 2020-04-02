@@ -17,9 +17,10 @@ import {
 
 import formStyles from '@styled/form.style';
 
-const ScreenshotForm = ({ item, onAdd, label }) => {
+const ScreenshotForm = ({ item, onAdd, onDelete, onSave, label }) => {
 
     const [screenshot, setScreenshot] = useState();
+
     const classes = formStyles();
 
     useEffect(() => {
@@ -35,11 +36,17 @@ const ScreenshotForm = ({ item, onAdd, label }) => {
 
     }, [item])
 
-    const addHandler = () => {
+    const handleAdd = () => {
 
         onAdd(screenshot);
-    }
+    };
 
+    const handleSave = () => {
+
+        onSave(screenshot);
+    };
+
+    const handleDelete = () => onDelete && onDelete(screenshot);
     
     const onChangeField = fieldDef => (...args)  => {
 
@@ -76,20 +83,28 @@ const ScreenshotForm = ({ item, onAdd, label }) => {
             { fields }
             <FlexContainer>
                 <FlexItem>
-                    <Button
+                {   item ? <Button
                         variant="contained"
                         // disabled={ !canSave.can }
-                        onClick={ addHandler }
+                        onClick={ handleSave }
+                        className={ classes.button }
+                        color="primary">Save shot</Button>
+                        : <Button
+                        variant="contained"
+                        // disabled={ !canSave.can }
+                        onClick={ handleAdd }
                         className={ classes.button }
                         color="primary">Add shot</Button>
+                }
                 </FlexItem>
                 <FlexItemRight>
-                    {/* <Button
+                    { item && <Button
                         variant="contained"
                         // disabled={ !canSave.can }
-                        onClick={ addHandler }
+                        onClick={ handleDelete }
                         className={ classes.button }
-                        color="primary">Add shot</Button> */}
+                        color="primary">delete</Button> 
+                    }
                 </FlexItemRight>
             </FlexContainer>
         </div>

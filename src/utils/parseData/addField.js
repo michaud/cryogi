@@ -52,28 +52,29 @@ export const addField = ({
 
         case portfolio.types.role : {
 
-            ref.addLiteral(predicate, data.value.join());
+            data.value.forEach(item => ref.addLiteral(predicate, item));
 
             break;
         }
 
         case portfolio.types.responsibility : {
 
-            ref.addLiteral(predicate, data.value.join());
+            data.value.forEach(item => ref.addLiteral(predicate, item));
 
             break;
         }
 
         case portfolio.types.tool : {
 
-            ref.addLiteral(predicate, data.value.join());
+            data.value.forEach(item => ref.addLiteral(predicate, item));
+
 
             break;
         }
 
         case portfolio.types.technology : {
 
-            ref.addLiteral(predicate, data.value.join());
+            data.value.forEach(item => ref.addLiteral(predicate, item));
 
             break;
         }
@@ -87,7 +88,7 @@ export const addField = ({
 
         case portfolio.classes.DatePeriod : {
 
-            ref.addLiteral(predicate, data.value.join());
+            data.value.forEach(item => ref.addLiteral(predicate, item));
 
             break;
         }
@@ -109,126 +110,6 @@ export const addField = ({
 
             break;
         }
-
-        // case golf.classes.Course : {
-
-        //     const course = data.value;
-        //     const courseRef = doc.addSubject({ identifier: data.value.iri === '' ? undefined : data.value.iri.split('#')[1] });
-        //     courseRef.addRef(rdf.type, golf.classes.Course);
-            
-        //     const holeType = field.predicate === "gameCourse" ? golf.classes.GameHole : golf.classes.Hole;
-
-        //     courseShape.shape.forEach(field => {
-
-        //         if(field.predicate === 'courseHoles') {
-
-        //             const holes = course.courseHoles.value;
-
-        //             holes.forEach(hole => {
-
-        //                 const elRef = saveElement({
-        //                     element: hole,
-        //                     doc,
-        //                     type: holeType
-        //                 })
-        
-        //                 courseRef.addRef(golf.properties.courseHoles, elRef.asRef());
-        //             });
-
-        //         } else {
-                    
-        //             addField({
-        //                 field,
-        //                 shape: courseShape,
-        //                 data: course[field.predicate],
-        //                 ref: courseRef,
-        //                 doc
-        //             });
-        //         }
-        //     });
-
-        //     ref.addRef(golf.properties.gameCourse, courseRef.asRef());
-
-        //     break;
-        // }
-
-        // case golf.classes.Marker : {
-
-        //     const elRef = saveElement({
-        //         element: data.value,
-        //         doc,
-        //         type: field.type
-        //     })
-
-        //     ref.addRef(golf.properties.gameMarker, elRef.asRef());
-
-        //     break;
-        // }
-
-        // case golf.classes.Player : {
-
-        //     const elRef = saveElement({
-        //         element: data.value,
-        //         doc,
-        //         type: golf.classes.Player
-        //     });
-
-        //     ref.addRef(golf.properties.gamePlayer, elRef.asRef());
-
-        //     break;
-        // }
-
-        // case golf.classes.Hole : {
-
-        //     if(field.predicate === 'courseHoles') {
-
-        //         const holes = data.value;
-                    
-        //         holes.forEach(hole => {
-
-        //             const elRef = saveElement({
-        //                 element: hole,
-        //                 doc,
-        //                 type: field.type
-        //             })
-        
-        //             ref.addRef(golf.properties.courseHoles, elRef.asRef());
-        //         });
-        //     }
-
-        //     break;
-        // }
-
-        // case golf.classes.GamePlayingHandicap : {
-
-        //     const elRef = saveElement({
-        //         element: data.value,
-        //         doc,
-        //         type: field.type
-        //     })
-
-        //     ref.addRef(golf.properties.gamePlayingHandicap, elRef.asRef());
-
-        //     break;
-        // }
-
-        // case golf.types.GeoCoordinates: {
-
-        //     const elRef = saveElement({
-        //         element: data.value,
-        //         doc,
-        //         type: field.type
-        //     })
-
-        //     ref.addRef(golf.properties.strokeLocation, elRef.asRef());
-
-        //     break;
-        // }
-
-        // case golf.classes.Stroke : {
-
-        //     break;
-        // }
 
         default : {
 
