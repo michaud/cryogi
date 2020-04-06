@@ -48,6 +48,7 @@ export const FlexToolRight = styled.div`
 const generateMediaQueries = (mediaSizes) => {
 
     return mediaSizes.map(sizes => `@media (min-width: ${ sizes[0] }) {
+        gap: ${ sizes[2] };
         grid-template-columns: ${ sizes[1] };
     }`);
 };
@@ -55,7 +56,7 @@ const generateMediaQueries = (mediaSizes) => {
 export const GridContainer = styled.div`
     display: grid;
     grid-template-columns: ${ props => props.cols ? props.cols : '1fr' };
-    grid-template-rows: repeat(auto-fill, ${ props => props.rowHeight ? props.rowHeight : 'auto' });
-    gap: 2rem;
+    ${ props => props.rowHeight ? 'grid-template-rows: repeat(auto-fill, ' + props.rowHeight + ')' : '' }
+    gap: ${ props => props.gap ? props.gap : '2rem' };
     ${ props => props.media && generateMediaQueries(props.media) }
 `;

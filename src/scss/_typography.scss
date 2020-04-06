@@ -7,6 +7,7 @@ html {
 
 h1, h2, h3, h4, h5 {
     margin-top: 0;
+    margin-bottom: .5rem;
 
     &.first {
         padding-top: 1rem;
@@ -34,9 +35,5 @@ h5 {
 }
 
 p {
-    margin: 0 0 1rem 0;
-
-    &:last-child {
-        margin-bottom: 0;
-    }
+    margin: .5rem 0;
 }

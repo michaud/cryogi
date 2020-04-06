@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { IconButton } from '@material-ui/core';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
@@ -14,11 +14,30 @@ const ManagePortfolios = ({ portfolios, label, selected, onSelect, onDelete, onS
 
     const [showAdd, setShowAdd] = useState(false);
     const { portfolioDataIsLoading } = useAppData();
+    const [selectedPortfolio, setSelectedPortfolio] = useState();
+
+    useEffect(() => {
+
+        let isCancel = false;
+
+        const update = () => {
+
+            if(!isCancel) setSelectedPortfolio(selected);
+        };
+
+        update();
+
+        return () => { isCancel = true };
+
+    }, [selected])
 
     const handleSelectPortfolio = (portfolio) => onSelect(portfolio);
     const handleDeletePortfolio = (portfolio) => onDelete && onDelete(portfolio);
     const handleSavePortfolio = (portfolio) => onSave(portfolio);
-    const handleShowAdd = () => setShowAdd(state => !state);
+    const handleShowAdd = () => {
+        setShowAdd(state => !state);
+        onSelect(selectedPortfolio);
+    }
 
     const hasPortfolios = portfolios.length > 0;
 
@@ -43,12 +62,13 @@ const ManagePortfolios = ({ portfolios, label, selected, onSelect, onDelete, onS
             <PortfolioList
                 label="Porfolios"
                 items={ portfolios }
+                selected={ selectedPortfolio }
                 onSelect={ handleSelectPortfolio }/>
             </div>
             <Switch has={ portfolios.length === 0 || showAdd || selected }>
                 { !portfolioDataIsLoading && <div className="l-elbow"><PortfolioForm
-                    label={ `${ selected ? 'Save' : 'Add'} portfolio` }
-                    item={ selected }
+                    label={ `${ selectedPortfolio ? 'Save' : 'Add'} portfolio` }
+                    item={ selectedPortfolio }
                     onSave={ handleSavePortfolio }
                     onDelete={ handleDeletePortfolio }/></div>
                 }

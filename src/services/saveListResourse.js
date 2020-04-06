@@ -57,6 +57,8 @@ const saveListResourse = async ({
     subject.setRef(type, filePath);
 
     await list.save();
+
+    return ref;
 };
 
 export default saveListResourse;

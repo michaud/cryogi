@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -24,15 +24,33 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const PortfolioList = ({ items = [], onSelect, label }) => {
+const PortfolioList = ({ items = [], onSelect, selected, label }) => {
 
+    const [selectedPortfolio, setSelectedPortfolio] = useState();
+    
     const classes = useStyles();
 
-    const [selected, setSelected] = useState();
+    useEffect(() => {
+
+        let isCancel = false;
+
+        const update = () => {
+
+            if(!isCancel) {
+
+                setSelectedPortfolio(selected);
+            }
+        }
+
+        update();
+
+        return () => { isCancel = true };
+
+    }, [selected])
 
     const handleSelect = value => () => {
 
-        setSelected(state => {
+        setSelectedPortfolio(state => {
 
             if(state && state.iri === value.iri) {
 
@@ -51,21 +69,18 @@ const PortfolioList = ({ items = [], onSelect, label }) => {
         <div>
             <Paper className={ classes.paper }>
                 <List dense component="div" role="list">
-                    { items.map((value, idx) => {
-                        
-                        const labelId = `transfer-list-item-${idx}-label`;
-
-                        return (
-                            <ListItem
-                                key={ idx }
-                                selected={ selected ? selected.iri === value.iri ? true : false : false }
-                                role="listitem"
-                                button
-                                onClick={ handleSelect(value) }>
-                                <ListItemText id={ labelId } primary={ value.portfolioName.value } />
-                            </ListItem>
-                        );
-                    }) }
+                    { items.map((value, idx) => (
+                        <ListItem
+                            key={ idx }
+                            selected={ selectedPortfolio ? selectedPortfolio.iri === value.iri ? true : false : false }
+                            role="listitem"
+                            button
+                            onClick={ handleSelect(value) }>
+                            <ListItemText
+                                id={ `transfer-list-item-${idx}-label` }
+                                primary={ value.portfolioName.value }/>
+                        </ListItem>
+                    )) }
                     <ListItem />
                 </List>
             </Paper>

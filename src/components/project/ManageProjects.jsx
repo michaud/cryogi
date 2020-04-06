@@ -120,7 +120,7 @@ const ManageProjects = ({ projects:items, label, selected, linked, onLink, onSel
                     }
                 </span>
             </h3>
-            <GridContainer className="l-elbow"
+            <GridContainer className={ `${ projects.length > 0 ? 'separate ' : '' }l-elbow` }
                 media={[
                     ['600px',`${ showAdd || selectedProject  ? '1fr' : '1fr' }`],
                     ['1300px',`${ showAdd || selectedProject ? '1fr 21rem' : '1fr 21rem' }`]

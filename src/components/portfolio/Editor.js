@@ -8,56 +8,35 @@ import iupdate from 'immutability-helper';
 import Head from 'next/head';
 
 import paths from '@constants/paths';
+import portfolio from '@constants/portfolio-namespace';
+import { useAppData } from '@contexts/AppDataProvider';
+import saveListResourse from '@services/saveListResourse';
+import deleteProjectFromPortfolios from '@services/deleteProjectFromPortfolios';
+import deleteListedItemByIri from '@services/deleteListedItemByIri';
+import findPortfoliosWithProject from '@utils/findPortfoliosWithProject';
+import findLinkedProjects from '@utils/findLinkedProjects';
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
-
-import portfolio from '@constants/portfolio-namespace';
-import { useAppData } from '@contexts/AppDataProvider';
-import deleteProjectFromPortfolios from '@services/deleteProjectFromPortfolios';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 import ManageProjects from '@components/project/ManageProjects';
 import ManagePortfolios from '@components/portfolio/ManagePortfolios';
+import Feature from '@components/editor/feature';
+import Intro from '@components/editor/Intro';
 
-import saveListResourse from '@services/saveListResourse';
 import { GridContainer } from '@styled/layout.style';
 import formStyles from '@styled/form.style';
-
-import { makeStyles } from '@material-ui/core/styles';
-import LinearProgress from '@material-ui/core/LinearProgress';
-import deleteListedItemByIri from '@services/deleteListedItemByIri';
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-        width: '100%',
-        '& > * + *': {
-            marginTop: theme.spacing(2),
-        },
-    },
-}));
-
-const findPortfoliosWithProject = (project, portfolios) => portfolios.filter(portfolio => {
-
-    const found = portfolio.projects.value.find(portfolioProject => project.iri === portfolioProject);
-
-    if (found) return true;
-
-    return false;
-});
 
 const Editor = () => {
 
     const {
         portfolioData,
-        portfolioDataIsLoading,
-        portfolioIsError,
         reloadPortfolios,
         projectData,
-        projectDataIsLoading,
-        projectIsError,
         reloadProjects
     } = useAppData();
 
@@ -88,10 +67,17 @@ const Editor = () => {
                 setProjects(projectData.list);
             }
 
-            if (!isCancel) setSelectedPortfolio(state => state ? iupdate(state, {
-                projects: { value: { $set: linkedProjects } }
-            }
-            ) : undefined);
+            if (!isCancel) setSelectedPortfolio(state => {
+                
+                return state ?
+                    iupdate(state, {
+                        projects: { value: { $set: linkedProjects } }
+                    })
+                    : portfolioData.list.length > 0 ?
+                        iupdate(portfolioData.list[portfolioData.list.length - 1], {
+                            projects: { value: { $set: linkedProjects } }
+                        }) : undefined;
+                    });
         }
 
         update();
@@ -100,10 +86,6 @@ const Editor = () => {
 
     }, [portfolioData, projectData, linkedProjects]);
 
-    const findLinkedProjects = (projects, portfolio) => portfolio.projects.value
-        .map(project => projects
-            .find(projectObj => projectObj.iri === project).iri);
-
     const handleSelectPortfolio = (portfolio) => {
 
         setSelectedPortfolio(state => {
@@ -111,6 +93,11 @@ const Editor = () => {
             if (!portfolio) {
 
                 setLinkedProjects();
+
+                return undefined;
+            }
+
+            if(state.iri === portfolio.iri) {
 
                 return undefined;
             }
@@ -145,6 +132,7 @@ const Editor = () => {
         });
 
         deleteListedItemByIri(selectedProject, projectData, portfolio.classes.Project);
+        setSelectedPortfolio();
         reloadProjects();
     };
 
@@ -173,7 +161,7 @@ const Editor = () => {
 
             setLinkedProjects(state => {
 
-                const newState = state.reduce((acc, item) => {
+                const linked = state.reduce((acc, item) => {
 
                     if (item !== linkedProject) {
 
@@ -184,7 +172,7 @@ const Editor = () => {
 
                 }, []);
 
-                return newState;
+                return linked;
             });
 
         } else {
@@ -195,7 +183,7 @@ const Editor = () => {
         }
     };
 
-    const handleSavePortfolio = async (item) => {
+    const handleSavePortfolio = async item => {
 
         await saveListResourse({
             resource: item,
@@ -205,7 +193,6 @@ const Editor = () => {
             itemPath: paths.APP_DATA_PORTFOLIO_PATH
         });
 
-        setSelectedPortfolio();
         reloadPortfolios();
     };
 
@@ -213,6 +200,7 @@ const Editor = () => {
 
         deleteListedItemByIri(selectedPortfolio.iri, portfolioData, portfolio.classes.Portfolio);
         reloadPortfolios();
+        setSelectedPortfolio();
     };
 
     const isMultiple = !portfoliosWithProject ? false : portfoliosWithProject.length > 1 ? true : false;
@@ -227,14 +215,9 @@ const Editor = () => {
 
             <div className="c-panel c-panel--heels">
                 <div className="">
-                <GridContainer media={ [['600px', '1fr 2fr'], ['900px', '1fr 3fr'], ['1400px', '21rem 1fr']] }>
-                    <div style={{ padding: '1rem', backgroundColor: 'rgb(126, 240, 224)', boxShadow:'rgb(100, 222, 205) 0px 0px 16px 3px inset'}}>
-                        <p>With the Portfolio Editor you manage your portfolios in your Solid POD. </p>
-                    </div>
-                    <div style={{ padding: '0 0 0 1rem'}}>
-                        <h2 className="first">Introduction</h2>
-                        <p>Create portfolios</p>
-                    </div>
+                <GridContainer gap="0" media={ [['600px', '1fr 2fr', '2rem'], ['900px', '1fr 3fr', '2rem'], ['1400px', '21rem 1fr', '2rem']] }>
+                    <Feature/>
+                    <Intro/>
                 </GridContainer>
                 </div>
             </div>
