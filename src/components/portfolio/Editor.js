@@ -67,17 +67,26 @@ const Editor = () => {
                 setProjects(projectData.list);
             }
 
-            if (!isCancel) setSelectedPortfolio(state => {
+            if (!isCancel) {
                 
-                return state ?
-                    iupdate(state, {
-                        projects: { value: { $set: linkedProjects } }
-                    })
-                    : portfolioData.list.length > 0 ?
-                        iupdate(portfolioData.list[portfolioData.list.length - 1], {
+                setSelectedPortfolio(state => {
+                
+                    const hasPorfolios = portfolioData.list.length > 0;
+
+                    if(!hasPorfolios) {
+
+                        setLinkedProjects();
+                        return undefined;
+                    }
+
+                    if(state) {
+
+                        return iupdate(state, {
                             projects: { value: { $set: linkedProjects } }
-                        }) : undefined;
-                    });
+                        })
+                    }
+                });
+            }
         }
 
         update();
@@ -97,16 +106,17 @@ const Editor = () => {
                 return undefined;
             }
 
-            if(state.iri === portfolio.iri) {
-
-                return undefined;
-            }
-
             if (projects) {
 
                 const gatheredProjects = findLinkedProjects(projects, portfolio);
 
                 setLinkedProjects(gatheredProjects);
+            }
+
+            if(state && state.iri === portfolio.iri) {
+
+                setLinkedProjects();
+                return undefined;
             }
 
             return portfolio;
