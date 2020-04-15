@@ -224,7 +224,7 @@ const Editor = () => {
             </Head>
 
             <div className="c-panel c-panel--heels">
-                <div className="">
+                <div>
                 <GridContainer gap="0" media={ [['800px', '1fr 2fr', '2rem'], ['1100px', '1fr 3fr', '2rem'], ['1400px', '21rem 1fr', '2rem']] }>
                     <Feature/>
                     <Intro/>
