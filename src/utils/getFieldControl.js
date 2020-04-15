@@ -45,6 +45,8 @@ const getFieldControl = ({
                 className={ styles.textField }
                 value={ data.value || '' }
                 onChange={ onChange(data) }
+                multiline
+                rows="6"
                 variant="outlined"/>
         }
 
