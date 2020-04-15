@@ -60,7 +60,7 @@ const TextChipAutoComplete = ({ value, onChange, defaultItemList = [], label = '
                     variant="outlined"
                     label={ label }
                     placeholder={ label }
-                    helperText={ <span>type text, hit enter, repeat</span> }/>
+                    helperText={ <span>A list of labels, type a label, hit enter, repeat</span> }/>
             ) }/>
     );
 };
