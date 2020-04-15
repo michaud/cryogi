@@ -32,7 +32,9 @@ const portfolio = {
         agency: `${ namespace }agency`,
         roles: `${ namespace }roles`,
         responsibilities: `${ namespace }responsibilities`,
-        screenshots: `${ namespace }screenshots`
+        screenshots: `${ namespace }screenshots`,
+        industry: `${ namespace }industry`,
+
     },
     types: {
         string: 'http://www.w3.org/2001/XMLSchema#string',
