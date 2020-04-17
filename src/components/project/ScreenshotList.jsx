@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const ScreenshotList = ({ items, onSelect, label }) => {
+const ScreenshotList = ({ items, onSelect, onDelete, label }) => {
 
     const [selected, setSelected] = useState();
 
@@ -64,7 +64,7 @@ const ScreenshotList = ({ items, onSelect, label }) => {
                                 onClick={ handleSelect(shot) }>
                                 <ListItemText id={ labelId } primary={ shot.shortScreenshotDescription.value } />
                                 <ListItemSecondaryAction>
-                                    <IconButton edge="end" aria-label="delete">
+                                    <IconButton edge="end" aria-label="delete" onClick={ onDelete }>
                                         <HighlightOffIcon />
                                     </IconButton>
                                 </ListItemSecondaryAction>

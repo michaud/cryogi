@@ -40,10 +40,7 @@ const ProjectForm = ({ item, onSave, onDelete }) => {
         }));
     };
 
-    const handleSaveProject = () => {
-        
-        onSave(project);
-    };
+    const handleSaveProject = () => onSave(project);
 
     const handleDeleteProject = () => onDelete && onDelete(project);
 

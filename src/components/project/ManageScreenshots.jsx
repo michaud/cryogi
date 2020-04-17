@@ -31,12 +31,18 @@ const ManageScreenshots = ({ items, onChange, label }) => {
     };
 
     const handleSelect = shot => setSetSelected(shot);
+
     const handleDelete = shot => {
         
         setScreenshots(state => {
 
-            const shotIndex = state.findIndex(stateShot => shot.iri === stateShot.iri);
+            const shotIndex = state.findIndex(stateShot => {
+                
+                return shot.iri === stateShot.iri;
+            });
+
             const newState = update(state, { $splice: [[shotIndex, 1]] });
+
             onChange(newState);
             setSetSelected();
 

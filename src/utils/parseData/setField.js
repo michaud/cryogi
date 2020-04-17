@@ -111,25 +111,8 @@ export const setField = ({ field, shape, data, element, ref, doc }) => {
 
         case portfolio.classes.Screenshot: {
 
-            const oldRefs = ref.getAllRefs(portfolio.properties.screenshots);
-
-            //remove all
-            if(data.value.length === 0) oldRefs.forEach(shot => doc.removeSubject(shot));
-            
-            const deletedRefs = oldRefs.filter(oldRef => {
-            
-                const found = data.value.find(target => target.iri === oldRef.iri);
-                if(found) return false;
-                return true;
-            });
-
-            //remove deleted from property and document
-            deletedRefs.forEach(shot => {
-
-                ref.removeRef(portfolio.properties.screenshots, shot)
-                doc.removeSubject(shot);
-            });
-
+            //add new screenshots to document
+            //save current screenshots
             data.value.forEach(screenshot => {
 
                 let iri = screenshot.iri;
@@ -158,6 +141,30 @@ export const setField = ({ field, shape, data, element, ref, doc }) => {
                     })
                 }
             });
+            const oldRefs = ref.getAllRefs(portfolio.properties.screenshots);
+
+            //remove all
+            if(data.value.length === 0) oldRefs.forEach(shot => doc.removeSubject(shot));
+
+            const deletedRefs = oldRefs.filter(oldRef => {
+
+                const found = data.value.find(target => {
+
+                    return target.iri !== '' && target.iri === oldRef;
+                });
+
+                if(found) return false;
+
+                return true;
+            });
+
+            //remove deleted from property and document
+            deletedRefs.forEach(shot => {
+
+                ref.removeRef(portfolio.properties.screenshots, shot)
+                doc.removeSubject(shot);
+            });
+
 
             break;
         }

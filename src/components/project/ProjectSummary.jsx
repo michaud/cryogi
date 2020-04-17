@@ -35,14 +35,14 @@ const ProjectSummary = ({ item: project, isLinked, isSelected = false, onLink, o
         className={ `c-project-summary${ isLinked ? ' linked' : '' }${ isSelected ? ' selected' : '' }` }
         onClick={ handleOnClick }>
         <div className="img">{ firstScreenshot && firstScreenshot.screenshotUrl.value ?
-            <img src={ firstScreenshot.screenshotUrl.value } alt={ firstScreenshot.shortScreenshotDescription.value } style={ { width: '100%' } } />
+            <img src={ firstScreenshot.screenshotUrl.value } alt={ firstScreenshot.shortScreenshotDescription.value }/>
             : <img style={ { left: 0, transform: 'none' } } src={ altImg } /> }
         </div>
         <div className="c-project-summary__content">
             <div className="fields">
                 <div className="summary-fields">
-                    { project.projectName.value }
-                    <span>for: { project.clientName.value }</span>
+                    <span>{ project.projectName.value } </span>
+                    <span className="summary__client">{ project.clientName.value }</span>
                 </div>
                 <div className="actions">
                     { isLinked === undefined
