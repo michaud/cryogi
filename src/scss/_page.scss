@@ -1,0 +1,32 @@
+.c-page {
+    min-height: 100vh;
+    background-color: rgb(236, 234, 220);
+}
+@keyframes flash {
+
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+.anim {
+    animation-duration: .3s;
+
+    animation-name: flash;
+}
+
+.c-page--project {
+
+    position: relative;
+    padding: 2rem 0 0 0;
+    // background: radial-gradient(
+    //     70% 650px at center,
+    //     rgb(195, 184, 165) 0,
+    //     rgb(195, 184, 165) 100%,
+    //     rgba(195, 184, 165, 0) 200%);
+    background: linear-gradient(
+        rgba(0,0,0, .7) 0,
+        rgba(0,0,0, 0) 200px
+    );
+
+    background-repeat: no-repeat;
+}

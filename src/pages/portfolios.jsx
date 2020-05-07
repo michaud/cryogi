@@ -17,11 +17,9 @@ const PortfolioList = ({ portfolios }) => {
 
     return (
         <PageContainer>
-            <Authentication />
             <h1>Portfolio list</h1>
-            {/* { webId && `webid:${ webId }` } */ }
             <ul>
-            { portfolios && portfolios.map(p => <li>{ p.portfolioName.value }</li>) }
+            { portfolios && portfolios.map((p, idx) => <li key={ idx }>{ p.portfolioName.value }</li>) }
             </ul>
         </PageContainer>
     );
@@ -44,11 +42,11 @@ export default PortfolioList;
 
 export const getStaticProps = async ctx => {
 
-    const portfolioList = await fetchDocument('https://michaud.inrupt.net/public/portfolio/portfolios.ttl')
-    const portfoliosRefs = portfolioList.findSubjects(portfolio.classes.Portfolio).map(p => p.getRef());
+    const list = await fetchDocument('https://michaud.inrupt.net/public/portfolio/portfolios.ttl')
+    const refs = list.findSubjects(portfolio.classes.Portfolio).map(p => p.getRef());
 
-    const portfolioPromises = portfoliosRefs.map(portfolioRef => fetchResource(portfolioRef));
-    const docs = await Promise.all(portfolioPromises);
+    const promises = refs.map(ref => fetchResource(ref));
+    const docs = await Promise.all(promises);
     const shape = typeShape[portfolio.classes.Portfolio];
 
     const items = docs.map(doc => {

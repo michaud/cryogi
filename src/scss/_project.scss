@@ -110,3 +110,33 @@
     }
 
 }
+
+.h-project {
+
+}
+
+.h-project__tag {
+
+    display: block;
+    line-height: 1.4;
+}
+
+.grd-proj {
+    display: grid;
+    gap: 1rem;
+    grid-template-areas: 
+    "desc  mission"
+    "result result";
+}
+
+.grd-proj__desc {
+    grid-area: desc;
+}
+
+.grd-mission {
+    grid-area: mission;
+}
+
+.grd-proj__result {
+    grid-area: result;
+}
