@@ -37,7 +37,7 @@ const ProjectDetail = ({ project }) => {
     return (
         <>
             <div style={ {
-                backgroundColor: 'rgb(195, 184, 165)',
+                background: 'linear-gradient(rgba(109, 81, 34, 0.7) 0px, rgb(195, 184, 165) 200px)',
                 minHeight: '100rem',
                 position: 'relative'
             } }>
