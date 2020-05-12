@@ -37,7 +37,7 @@ const ProjectDetail = ({ project }) => {
     return (
         <>
             <div style={ {
-                background: 'linear-gradient(rgba(109, 81, 34, 0.7) 0px, rgb(195, 184, 165) 200px)',
+                background: 'linear-gradient(rgb(199, 178, 143) 0px, rgb(195, 184, 165) 375px)',
                 minHeight: '100rem',
                 position: 'relative'
             } }>
@@ -47,25 +47,35 @@ const ProjectDetail = ({ project }) => {
                         <img className="c-site-logo__img" src="/logo.svg" />
                     </a>
 
-                    <h1 style={{ visibility: 'hidden' }} className="h-project"><span className="h-project__tag">{ projectName.value }</span></h1>
-                    <GridContainer cols="1fr 5fr" style={{ visibility: 'hidden' }} gap="2rem">
+                    <div  style={{ background: 'rgba(218, 207, 180, 0.85)', padding: '3rem', margin: '0 12.2rem 0 12.2rem', maxWidth: '72.8rem'}}>
+                        <h1 className="h-project"><span className="h-project__tag">{ projectName.value }</span></h1>
                         <div> <span className="pill pill--accent pill--accent-weight">for { clientName.value }</span> <span className="pill pill--accent">in { industry.value }</span> <span className="pill pill--accent">by { agency.value }</span></div>
-                        <div className="">{ mission.value }</div>
-                        <div className="tbl--top tbl--pill">
-                            <h2>involvement</h2>
-                            <GridContainer cols="1fr 1fr" gap=".5rem" style={ { width: '24rem' } }>
-                                <div><h3>roles</h3>{ roles.value.map((role, idx) => <span className="pill pill--accent" key={ `role${idx}` }>{ role }</span>) }</div>
-                                <div><h3>responsibilities</h3>{ responsibilities.value.map((resp, idx) => <span className="pill pill--accent" key={ `resp${idx}` }>{ resp }</span>) }</div>
-                                <div><h3>tools</h3>{ tools.value.map((tool, idx) => <span className="pill pill--accent" key={ `tool${idx}` }>{ tool }</span>) }</div>
-                                <div><h3>technologies</h3>{ technologies.value.map((technology, idx) => <span className="pill pill--accent" key={ `technology${idx}` }>{ technology }</span>) }</div>
-                            </GridContainer>
-                        </div>
-                        <div>
-                            <div className="">{ description.value }</div>
-                            <div className="">{ result.value }</div>
-                        </div>
-                    </GridContainer>
-                    <div style={{ visibility: 'hidden' }}>{ screenshots.value.map((shot, idx) => <img key={ `img${idx}` } src={ shot.screenshotUrl.value } />) }</div>
+                        <GridContainer cols="5fr 1fr" gap="2rem">
+                            <div>
+                                <div className="">
+                                    <h3>Mission</h3>{ mission.value }
+                                </div>
+                                <div className="">
+                                    <h3>Description</h3>
+                                    { description.value }
+                                </div>
+                                <div className="">
+                                    <h3>Result</h3>
+                                    { result.value }
+                                </div>
+                            </div>
+                            <div className="tbl--top tbl--pill">
+                                <h2>involvement</h2>
+                                <GridContainer cols="1fr 1fr" gap=".5rem" style={ { width: '24rem' } }>
+                                    <div><h3>roles</h3>{ roles.value.map((role, idx) => <span className="pill pill--accent" key={ `role${idx}` }>{ role }</span>) }</div>
+                                    <div><h3>responsibilities</h3>{ responsibilities.value.map((resp, idx) => <span className="pill pill--accent" key={ `resp${idx}` }>{ resp }</span>) }</div>
+                                    <div><h3>tools</h3>{ tools.value.map((tool, idx) => <span className="pill pill--accent" key={ `tool${idx}` }>{ tool }</span>) }</div>
+                                    <div><h3>technologies</h3>{ technologies.value.map((technology, idx) => <span className="pill pill--accent" key={ `technology${idx}` }>{ technology }</span>) }</div>
+                                </GridContainer>
+                                <div>{ screenshots.value.map((shot, idx) => <img style={{ width: '100%'}} key={ `img${idx}` } src={ shot.screenshotUrl.value } />) }</div>
+                            </div>
+                        </GridContainer>
+                    </div>
                 </PageContainer>
 
             </div>
@@ -81,7 +91,7 @@ const ProjectDetail = ({ project }) => {
                             <path d="M 0 0 l 0 323.9 l 46.7 -60.8 h 2873.2 v -263.1 z" />
                         </clipPath>
                     </defs>
-                    <image x="0" y="-270" width="3724" height="835" clipPath="url(#clipPath972-5)" href="/header-bg.jpg" />
+                    {/* <image x="0" y="-270" width="3724" height="835" clipPath="url(#clipPath972-5)" href="/header-bg.jpg" /> */}
                     <path d="M 0 0 l 0 38.2 l 46.7 60.8 h 2873.2 v -99 z" fill="#100f56" />
                 </svg>
                 <img style={ { position: 'absolute', top: 40, left: 71, width: 110 } } src="/logo.svg" />
