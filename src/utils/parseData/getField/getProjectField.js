@@ -1,7 +1,4 @@
-import parseFields from '@utils/parseData/parseFields';
-
 import portfolio from '@constants/portfolio-namespace';
-import typeShape from '../typeShape';
 
 
 const getProjectField = doc => (data, label) => {

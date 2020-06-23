@@ -1,12 +1,5 @@
 import React, { useState } from 'react';
 
-import { useAuth } from '@contexts/AuthProvider';
-
-import Authentication from '@components/Authentication';
-import { solid, rdf } from 'rdf-namespaces';
-
-import { namedNode } from '@rdfjs/data-model';
-
 import { PageContainer } from '@styled/page.style';
 import { fetchDocument } from 'tripledoc';
 import portfolio from '@constants/portfolio-namespace';
