@@ -26,8 +26,14 @@ const getFieldData = (shape, doc, data, ...rest) => field => {
     switch(type) {
 
         case portfolio.types.string:
-        case portfolio.types.dateTime:
         case portfolio.types.text: {
+
+            fieldData = getTypeData[type](predicate)(data, label, fieldValue);
+
+            break;
+        }
+
+        case portfolio.types.dateTime: {
 
             fieldData = getTypeData[type](predicate)(data, label, fieldValue);
 

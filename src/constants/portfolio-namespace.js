@@ -17,6 +17,7 @@ const portfolio = {
         screenshotDescription: `${ namespace }screenshotDescription`,
         screenshotUrl: `${ namespace }screenshotUrl`,
         projectName: `${ namespace }projectName`,
+        locales: `${ namespace }locales`,
         portfolioName: `${ namespace }portfolioName`,
         gameCourse: `${ namespace }gameCourse`,
         periods:  `${ namespace }periods`,

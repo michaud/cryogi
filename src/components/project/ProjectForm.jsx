@@ -15,6 +15,7 @@ import { FlexContainer, FlexItem, FlexItemRight } from '@styled/layout.style';
 const ProjectForm = ({ item, onSave, onDelete }) => {
 
     const [project, setProject] = useState();
+    const [locales, setLocales] = useState([]);
     const classes = formStyles();
 
     useEffect(() => {
@@ -22,6 +23,9 @@ const ProjectForm = ({ item, onSave, onDelete }) => {
         if(item) {
 
             setProject(item)
+            if(item.locales) {
+                setLocales(item.locales);
+            }
 
         } else {
 
@@ -57,7 +61,8 @@ const ProjectForm = ({ item, onSave, onDelete }) => {
                 label: '',
                 styles: classes,
                 onChange: onChangeField,
-                idx: index++
+                idx: index++,
+                locales
             });
 
             fields.push(fieldControl);

@@ -15,6 +15,13 @@
     "shape": [
         {
             "prefix": "portfolio",
+            "predicate": "locales",
+            "type": "http://www.w3.org/2001/XMLSchema#string",
+            "label": "locales",
+            "value": ""
+        },
+        {
+            "prefix": "portfolio",
             "predicate": "projectName",
             "type": "http://www.w3.org/2001/XMLSchema#string",
             "label": "Name",

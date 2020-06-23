@@ -1,15 +1,17 @@
 import React from 'react';
 
 import TextField from '@material-ui/core/TextField';
-import ManageProjects from '@components/project/ManageProjects';
-import ManagePeriods from '@components/project/ManagePeriods';
-import ManageScreenshots from '@components/project/ManageScreenshots'; 
-import DateTimeSelector from '@components/DateTimeSelector';
-import TextChipAutoComplete from '@components/TextChipAutoComplete';
 
 import ulog from 'ulog';
 
 import portfolio from "@constants/portfolio-namespace";
+import ManageLocales from '@components/project/ManageLocales';
+import LocalesTextField from '@components/form/LocalesTextField';
+import ManageProjects from '@components/project/ManageProjects';
+import ManagePeriods from '@components/project/ManagePeriods';
+import ManageScreenshots from '@components/project/ManageScreenshots'; 
+import DateTimeSelector from '@components/form/DateTimeSelector';
+import TextChipAutoComplete from '@components/form/TextChipAutoComplete';
 
 const log = ulog('usePublicTypeIndex');
 
@@ -23,6 +25,22 @@ const getFieldControl = ({
 }) => {
 
     const required = data.hasOwnProperty('required') ? data.required : true;
+
+    switch(data.iri) {
+
+        case portfolio.properties.locales: {
+
+            const locales = data.value.split(',')
+            return (
+                <ManageLocales key={ idx }
+                    onChange={ onChange }
+                    locales={ locales }
+                    label={ data.label }/>
+            )
+        }
+
+        default: break;
+    }
 
     switch(data.type) {
 

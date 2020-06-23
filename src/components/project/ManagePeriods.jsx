@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import PeriodChipAutoComplete from '@components/PeriodChipAutoComplete';
+import PeriodChipAutoComplete from '@components/form/PeriodChipAutoComplete';
 
 const ManagePeriods = ({ items, label, onChange }) => {
 
