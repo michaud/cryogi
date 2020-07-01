@@ -107,7 +107,7 @@ const AuthProvider = ({ children }) => {
             isLoading,
             login
         } }>{ children }</AuthContext.Provider>
-    )
+    );
 };
 
 const useAuth = () => {
