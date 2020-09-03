@@ -256,7 +256,9 @@ const Editor = () => {
                 onClose={ handleClose }
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description">
-                <DialogTitle className={ classes.dialogTitle } id="alert-dialog-title">{ "Project is part of portfolio!" }</DialogTitle>
+                <DialogTitle
+                    className={ classes.dialogTitle }
+                    id="alert-dialog-title">{ "Project is part of portfolio!" }</DialogTitle>
                 <DialogContent className={ classes.dialogContent }>
                     <p>{ dialogFirstText }:</p>
                     { portfoliosWithProject && <ul>{

@@ -13,6 +13,7 @@ import portfolio from '@constants/portfolio-namespace';
 import fetchResource from '@services/fetchResource';
 import typeShape from '@utils/parseData/typeShape';
 import parseFields from '@utils/parseData/parseFields';
+
 const PortfolioList = ({ portfolios }) => {
 
     return (

@@ -36,7 +36,11 @@ const PeriodChip = (props) => {
 
 
     return (
-        <Chip color={ parsedDates[0] === 'invalid' ? 'secondary' : 'default' } variant="outlined" label={ toLabel(parsedDates) } { ...rest } />
+        <Chip
+            color={ parsedDates[0] === 'invalid' ? 'secondary' : 'default' }
+            variant="outlined"
+            label={ toLabel(parsedDates) }
+            { ...rest } />
     );
 };
 
