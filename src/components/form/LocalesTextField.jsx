@@ -15,11 +15,10 @@ const LocalesTextField = ({
     const { selectedLocale, localeList } = useLocale();
 
     return (
-        <div>
-            <div>{ localeList.map((locale,idx) => <span key={idx}>{ locale },</span>)}</div>
+        <div className="pos-rel">
             <TextField
                 required={ required }
-                label={ <div>{ label }<span>{ selectedLocale }</span></div> }
+                label={ label }
                 className={ className }
                 InputLabelProps={{
                     shrink: true,
@@ -28,6 +27,7 @@ const LocalesTextField = ({
                 value={ value || '' }
                 onChange={ onChange(data) }
                 variant="outlined"/>
+            <div className="locale-tag">{ selectedLocale }</div>
         </div>
     );
 };

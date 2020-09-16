@@ -19,3 +19,13 @@
 button.selected {
     background: green;
 }
+
+.locale-tag {
+    position: absolute;
+    top: -.5rem;
+    right: .25rem;
+    background-color: white;
+    padding:0 .25rem;
+    font-size: .89rem;
+    color: rgba($color: #000000, $alpha: .4)
+}
