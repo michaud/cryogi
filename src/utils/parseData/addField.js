@@ -44,7 +44,7 @@ export const addField = ({
         case portfolio.classes.Project : {
 
             const projects = data.value;
-
+//TODO do we need this?
             projects.forEach(project => {
                 
             });

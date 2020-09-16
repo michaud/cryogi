@@ -1,6 +1,6 @@
-const getSimpleLiteral = predicate =>  (data, label, defaultValue) => {
+const getLocaleLiteral = predicate =>  (data, label, defaultValue) => {
 
-    const value = data ? data.getLiteral(predicate) : defaultValue;
+    const value = data ? data.getAllLiterals(predicate) : defaultValue;
 
     return ({
         label,
@@ -8,4 +8,4 @@ const getSimpleLiteral = predicate =>  (data, label, defaultValue) => {
     })
 };
 
-export default getSimpleLiteral;
+export default getLocaleLiteral;

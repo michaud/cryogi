@@ -25,7 +25,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 
 import ManageProjects from '@components/project/ManageProjects';
 import ManagePortfolios from '@components/portfolio/ManagePortfolios';
-import Feature from '@components/editor/feature';
+import Feature from '@components/editor/Feature';
 import Intro from '@components/editor/Intro';
 
 import { GridContainer } from '@styled/layout.style';

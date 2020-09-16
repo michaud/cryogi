@@ -11,6 +11,7 @@ import getFieldControl from '@utils/getFieldControl';
 import formStyles from '@styled/form.style';
 import getFieldValue from '@utils/getFieldValue';
 import { FlexContainer, FlexItem, FlexItemRight } from '@styled/layout.style';
+import { LocaleProvider } from '@contexts/LocaleProvider';
 
 const ProjectForm = ({ item, onSave, onDelete }) => {
 
@@ -70,6 +71,7 @@ const ProjectForm = ({ item, onSave, onDelete }) => {
     }
 
     return (
+        <LocaleProvider>
         <div className="c-box--form">
             <h4>{ item ? 'Edit project' : 'Add project' }</h4>
             { fields }
@@ -93,6 +95,7 @@ const ProjectForm = ({ item, onSave, onDelete }) => {
                 </FlexItemRight>
             </FlexContainer>
         </div>
+        </LocaleProvider>
     );
 };
 

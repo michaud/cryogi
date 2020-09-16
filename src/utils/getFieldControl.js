@@ -30,7 +30,8 @@ const getFieldControl = ({
 
         case portfolio.properties.locales: {
 
-            const locales = data.value.split(',')
+            const locales = data.value;
+
             return (
                 <ManageLocales key={ idx }
                     onChange={ onChange }
@@ -46,13 +47,22 @@ const getFieldControl = ({
 
         case portfolio.types.string : {
 
-            return <TextField key={ idx }
+            return <LocalesTextField key={ idx }
                 required={ required }
                 label={ data.label }
                 className={ styles.textField }
                 value={ data.value || '' }
-                onChange={ onChange(data) }
+                onChange={ onChange }
+                data={ data }
                 variant="outlined"/>
+
+            // return <TextField key={ idx }
+            //     required={ required }
+            //     label={ data.label }
+            //     className={ styles.textField }
+            //     value={ data.value || '' }
+            //     onChange={ onChange(data) }
+            //     variant="outlined"/>
         }
 
         case portfolio.types.text : {

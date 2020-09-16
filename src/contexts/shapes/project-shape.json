@@ -18,7 +18,7 @@
             "predicate": "locales",
             "type": "http://www.w3.org/2001/XMLSchema#string",
             "label": "locales",
-            "value": ""
+            "value": []
         },
         {
             "prefix": "portfolio",
@@ -41,7 +41,7 @@
             "type": "http://www.w3.org/2001/XMLSchema#string",
             "label": "Industry",
             "required": false,
-            "value": ""
+            "value": []
         },
         {
             "prefix": "portfolio",
