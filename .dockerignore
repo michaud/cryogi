@@ -1,0 +1,13 @@
+node_modules
+npm-debug.log
+
+# next.js
+/.next/
+/out/
+
+/build
+
+.env*
+/notes
+
+/.vscode
