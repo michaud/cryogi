@@ -5,6 +5,15 @@
     list-style-type: none;
 }
 
+.l-plain--inline {
+    display: inline-block;
+    padding: 0;
+}
+
+.l-plain__item {
+    display: inline-block;
+}
+
 .nav-list {
     padding: 1rem;
 }

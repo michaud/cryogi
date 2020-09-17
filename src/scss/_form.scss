@@ -29,3 +29,48 @@ button.selected {
     font-size: .89rem;
     color: rgba($color: #000000, $alpha: .4)
 }
+
+.loc-chooser {
+    border: none;
+    padding: 0;
+}
+
+.loc-chooser__label {
+    display: inline-block;
+    padding-right: .5rem;
+}
+
+.chooser {
+
+    li {
+        border-right: 1px solid black;
+
+        button {
+            padding: .22rem .5rem;
+            border: none;
+            &:focus {
+                outline: none;
+            }
+            &.selected {
+                border: none;
+                color: white;
+            }
+        }
+    }
+
+    li:first-child {
+        
+        button {
+            border-radius: 5px 0 0 5px;
+        }
+    }
+
+    li:last-child {
+
+        border-right: none;
+
+        button {
+            border-radius: 0 5px 5px 0;
+        }
+    } 
+}

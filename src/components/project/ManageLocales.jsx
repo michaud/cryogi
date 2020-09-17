@@ -41,14 +41,17 @@ const ManageLocales = (props) => {
             );
         }
 
-        return <button className={ selectedLocale === locale ? 'selected' : '' } onClick={ handleChangeLocale(locale) } key={ idx }>{ locale }</button>
+        return <li key={ idx } className="l-plain__item"><button className={ selectedLocale === locale ? 'selected' : '' } onClick={ handleChangeLocale(locale) } key={ idx }>{ locale }</button></li>
     };
 
     return (
-        <div>{ label } 
-        <button className={ selectedLocale === null ? 'selected' : '' } onClick={ handleChangeLocale(null) }>none</button>
-        { locales.map(renderLocales) }
-        </div>
+        <fieldset className="loc-chooser">
+            <label className="loc-chooser__label">{ label }</label>
+            <ul className="l-plain--inline chooser">
+                <li className="l-plain__item"><button className={ selectedLocale === null ? 'selected' : '' } onClick={ handleChangeLocale(null) }>none</button></li>
+                { locales.map(renderLocales) }
+            </ul>
+        </fieldset>
     );
 }
 
