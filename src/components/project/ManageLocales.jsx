@@ -23,7 +23,7 @@ const ManageLocales = (props) => {
     const [selectedLocale, setSelectedLocale] = useState(null);
     const { selectLocale, setLocales } = useLocale();
     
-    const handleChangeLocale = (locale) => () => {
+    const handleChangeLocale = locale => () => {
         
         setSelectedLocale(locale); //?
         selectLocale(locale);

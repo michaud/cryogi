@@ -13,7 +13,7 @@ const LocalesTextField = ({
 }) => {
 
     const { selectedLocale, localeList } = useLocale();
-
+    const idx = localeList.indexOf(selectedLocale);
     return (
         <div className="pos-rel">
             <TextField
@@ -24,7 +24,7 @@ const LocalesTextField = ({
                     shrink: true,
                     classes: { root: 'plop' }
                 }}
-                value={ value || '' }
+                value={ value[idx] || '' }
                 onChange={ onChange(data) }
                 variant="outlined"/>
             <div className="locale-tag">{ selectedLocale }</div>
