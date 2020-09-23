@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import { PageContainer } from '@styled/page.style';
 import { fetchDocument } from 'tripledoc';

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Authentication from '@components/Authentication';
 import Editor from '@components/portfolio/Editor';
 
@@ -13,7 +11,7 @@ const editPortfolio = () => {
     return (
         <PageContainer>
             <Authentication/>
-            <h1>Portfolio editor</h1>
+            <h1>Portfolio editor plop</h1>
             { webId && <Editor/> }
         </PageContainer>
     );

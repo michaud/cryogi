@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import { subEvent } from 'rdf-namespaces/dist/schema';
 
 const HeaderBackground = () => {
