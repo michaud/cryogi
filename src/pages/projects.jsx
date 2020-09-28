@@ -33,8 +33,6 @@ const ProjectList = ({ projects }) => {
                     }) }
                     </ul>
                 </nav>
-                <div>plop</div>
-            
             </GridContainer>
         </PageContainer>
     );

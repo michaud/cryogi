@@ -23,8 +23,7 @@ const LocalesTextField = ({
                 label={ label }
                 className={ className }
                 InputLabelProps={{
-                    shrink: true,
-                    classes: { root: 'plop' }
+                    shrink: true
                 }}
                 value={ value[idx] || '' }
                 onChange={ onChange(data) }

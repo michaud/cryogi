@@ -11,7 +11,7 @@ const editPortfolio = () => {
     return (
         <PageContainer>
             <Authentication/>
-            <h1>Portfolio editor plop</h1>
+            <h1>Portfolio editor</h1>
             { webId && <Editor/> }
         </PageContainer>
     );
