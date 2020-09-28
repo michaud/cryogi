@@ -13,7 +13,9 @@ const LocalesTextField = ({
 }) => {
 
     const { selectedLocale, localeList } = useLocale();
-    const idx = localeList.indexOf(selectedLocale);
+    const localeTextIdx = localeList.indexOf(selectedLocale); 
+    const idx = localeTextIdx > -1 ? localeTextIdx : 0;
+
     return (
         <div className="pos-rel">
             <TextField

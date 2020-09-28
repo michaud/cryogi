@@ -35,7 +35,6 @@ const getFieldControl = ({
             return (
                 <ManageLocales key={ idx }
                     onChange={ onChange }
-                    locales={ locales }
                     label={ data.label }/>
             )
         }

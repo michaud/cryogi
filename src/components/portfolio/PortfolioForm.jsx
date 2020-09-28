@@ -6,8 +6,10 @@ import Button from '@material-ui/core/Button';
 
 import setupDataObject from '@utils/setupDataObject';
 import portfolioShape from '@contexts/shapes/portfolio-shape.json';
-import getFieldControl from '@utils/getFieldControl';
 import getFieldValue from '@utils/getFieldValue';
+import getFormFields from '@components/form/getFormFields';
+
+import { LocaleProvider } from '@contexts/LocaleProvider';
 
 import {
     FlexContainer,
@@ -20,7 +22,7 @@ import formStyles from '@styled/form.style';
 const PortfolioForm = ({ item, onSave, onDelete, label }) => {
 
     const [portfolio, setPortfolio] = useState();
-    
+
     const classes = formStyles();
 
     useEffect(() => {
@@ -51,30 +53,13 @@ const PortfolioForm = ({ item, onSave, onDelete, label }) => {
     };
 
     const handleDeletePortfolio = () => onDelete && onDelete(portfolio);
-    const portfolioFields = [];
-    
-    let index = 0;
 
-    if(portfolio) {
-
-        portfolioShape.shape.forEach(field => {
-
-            const fieldControl = getFieldControl({
-                data: portfolio[field.predicate],
-                label: '',
-                styles: classes,
-                onChange: onChangeField,
-                idx: index++
-            });
-
-            portfolioFields.push(fieldControl);
-        });
-    }
+    const fields = getFormFields(portfolio, portfolioShape, classes, onChangeField);
 
     return (
-        <div>
+        <LocaleProvider>
             <h4>{ label }</h4>
-            { portfolioFields }
+            { fields }
             <FlexContainer>
                 <FlexItem>
                     { item ? <Button
@@ -94,7 +79,7 @@ const PortfolioForm = ({ item, onSave, onDelete, label }) => {
                         color="primary">Save</Button>
                 </FlexItemRight>
             </FlexContainer>
-        </div>
+        </LocaleProvider>
     );
 };
 

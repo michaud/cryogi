@@ -1,41 +1,50 @@
 import { useState, useEffect } from 'react';
 import { useLocale } from '@contexts/LocaleProvider';
 
-const Twist = 'Twist'; 
-const Ten = 'Ten';
-const Right = 'Right';
-
-const TestButton = ({ variant=Twist | Ten | Right }) => {
-    return <button></button>
-}
-
-// {
-//     locales=['nl-nl','de-de'],
-//     label,
-//     onChange=() => {}}
-
-const ManageLocales = (props) => {
-    const {
-        locales,
-        label,
-        onChange} = props;
+const ManageLocales = ({
+    label,
+    onChange
+}) => {
         
     const [selectedLocale, setSelectedLocale] = useState(null);
-    const { selectLocale, setLocales } = useLocale();
+    const [showAddLocale, setShowAddLocale] = useState(false);
+    const [newLocale, setNewLocale] = useState('');
+    const { selectLocale, setLocales, addLocale, localeList } = useLocale();
     
     const handleChangeLocale = locale => () => {
         
         setSelectedLocale(locale); //?
         selectLocale(locale);
+    };
+
+    const handleShowAddLocale = () => {
+        setShowAddLocale(state => !state);
+    };
+
+    const handleNewLocale = e => {
+
+        const val = e.target.value;
+        setNewLocale(val);
     }
-        
+
+    const handleAddLocale = locale => {
+        setShowAddLocale(false);
+        addLocale(locale);
+    };
+
     useEffect(() => {
-        setLocales(locales)
-    }, [locales]);
+
+        setLocales(_ => {
+
+            if(localeList.length > 0 && !selectedLocale) setSelectedLocale(localeList[0])
+
+            return localeList;
+        });
+    }, [localeList]);
     
     const renderLocales = (locale, idx) => {
 
-        if(locales.length === 1) {
+        if(localeList.length === 1) {
             return (
                 <span key={ idx }>{ locale }</span>
             );
@@ -48,8 +57,18 @@ const ManageLocales = (props) => {
         <fieldset className="loc-chooser">
             <label className="loc-chooser__label">{ label }</label>
             <ul className="l-plain--inline chooser">
-                <li className="l-plain__item"><button className={ selectedLocale === null ? 'selected' : '' } onClick={ handleChangeLocale(null) }>none</button></li>
-                { locales.map(renderLocales) }
+                { localeList.map(renderLocales) }
+                <li className="l-plain__item"><button onClick={ handleShowAddLocale }>+</button></li>
+                {
+                    showAddLocale && 
+                    <>
+                        <li className="l-plain__item"><input type="text" onChange={ handleNewLocale } value={ newLocale }/></li>
+                        <li className="l-plain__item"><button onClick={ () => {
+
+                            handleAddLocale(newLocale)
+                        }}>add</button></li>
+                    </>
+                }
             </ul>
         </fieldset>
     );

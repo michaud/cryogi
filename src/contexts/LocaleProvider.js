@@ -8,7 +8,7 @@ const LocaleContext = createContext();
 
 const LocaleProvider = ({ children }) => {
 
-    const [selectedLocale, setSelectedLocale] = useState('nl-nl');
+    const [selectedLocale, setSelectedLocale] = useState(null);
     const [localeList, setLocaleList] = useState([]);
 
     const selectLocale = locale => {
@@ -21,13 +21,18 @@ const LocaleProvider = ({ children }) => {
         setLocaleList(locales);
     };
 
+    const addLocale = locale => {
+
+        setLocaleList(state => [...state,locale]);
+    };
 
     return (
         <LocaleContext.Provider value={ {
             selectedLocale,
             selectLocale,
             localeList,
-            setLocales
+            setLocales,
+            addLocale
         } }>{ children }</LocaleContext.Provider>
     )
 };

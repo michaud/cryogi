@@ -6,17 +6,17 @@ import Button from '@material-ui/core/Button';
 
 import setupDataObject from '@utils/setupDataObject';
 import projectShape from '@contexts/shapes/project-shape.json';
-import getFieldControl from '@utils/getFieldControl';
+
+import { LocaleProvider } from '@contexts/LocaleProvider';
 
 import formStyles from '@styled/form.style';
 import getFieldValue from '@utils/getFieldValue';
 import { FlexContainer, FlexItem, FlexItemRight } from '@styled/layout.style';
-import { LocaleProvider } from '@contexts/LocaleProvider';
+import getFormFields from '@components/form/getFormFields';
 
 const ProjectForm = ({ item, onSave, onDelete }) => {
 
     const [project, setProject] = useState();
-    const [locales, setLocales] = useState([]);
     const classes = formStyles();
 
     useEffect(() => {
@@ -24,9 +24,6 @@ const ProjectForm = ({ item, onSave, onDelete }) => {
         if(item) {
 
             setProject(item)
-            if(item.locales) {
-                setLocales(item.locales);
-            }
 
         } else {
 
@@ -49,26 +46,7 @@ const ProjectForm = ({ item, onSave, onDelete }) => {
 
     const handleDeleteProject = () => onDelete && onDelete(project);
 
-    const fields = [];
-    
-    let index = 0;
-
-    if(project) {
-
-        projectShape.shape.forEach(field => {
-
-            const fieldControl = getFieldControl({
-                data: project[field.predicate],
-                label: '',
-                styles: classes,
-                onChange: onChangeField,
-                idx: index++,
-                locales
-            });
-
-            fields.push(fieldControl);
-        });
-    }
+    const fields = getFormFields(project, projectShape, classes, onChangeField);
 
     return (
         <LocaleProvider>
