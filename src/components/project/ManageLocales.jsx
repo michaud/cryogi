@@ -1,25 +1,28 @@
-import { useState, useEffect } from 'react';
+import {
+    useState,
+    useEffect,
+    useRef
+} from 'react';
 import { useLocale } from '@contexts/LocaleProvider';
 
 const ManageLocales = ({
     label,
     onChange
 }) => {
-        
+
     const [selectedLocale, setSelectedLocale] = useState(null);
     const [showAddLocale, setShowAddLocale] = useState(false);
     const [newLocale, setNewLocale] = useState('');
-    const { selectLocale, setLocales, addLocale, localeList } = useLocale();
-    
+
+    const newLocaleRef = useRef(null);
+
     const handleChangeLocale = locale => () => {
         
         setSelectedLocale(locale); //?
         selectLocale(locale);
     };
 
-    const handleShowAddLocale = () => {
-        setShowAddLocale(state => !state);
-    };
+    const handleShowAddLocale = () => setShowAddLocale(state => !state);
 
     const handleNewLocale = e => {
 
@@ -27,20 +30,37 @@ const ManageLocales = ({
         setNewLocale(val);
     }
 
-    const handleAddLocale = locale => {
+    const handleAddLocale = () => {
         setShowAddLocale(false);
-        addLocale(locale);
+        addLocale(newLocale);
+    };
+
+    const handleNewLocaleKeyUp = e => {
+
+        const key = e.key;
+
+        if(key === 'Enter' && newLocaleRef.current.value.length > 0) {
+
+            handleAddLocale();
+        }
     };
 
     useEffect(() => {
 
-        setLocales(_ => {
+        setLocales(() => {
 
-            if(localeList.length > 0 && !selectedLocale) setSelectedLocale(localeList[0])
+            if(localeList.length > 0 && selectedLocale === null) setSelectedLocale(localeList[0])
 
             return localeList;
         });
     }, [localeList]);
+
+    useEffect(() => {
+
+        if(showAddLocale) {
+            newLocaleRef.current.focus();
+        }
+    }, [showAddLocale])
     
     const renderLocales = (locale, idx) => {
 
@@ -62,11 +82,8 @@ const ManageLocales = ({
                 {
                     showAddLocale && 
                     <>
-                        <li className="l-plain__item"><input type="text" onChange={ handleNewLocale } value={ newLocale }/></li>
-                        <li className="l-plain__item"><button onClick={ () => {
-
-                            handleAddLocale(newLocale)
-                        }}>add</button></li>
+                        <li className="l-plain__item"><input ref={ newLocaleRef } type="text" onChange={ handleNewLocale } onKeyUp={ handleNewLocaleKeyUp } value={ newLocale }/></li>
+                        <li className="l-plain__item"><button onClick={ handleAddLocale }>add</button></li>
                     </>
                 }
             </ul>
