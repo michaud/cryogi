@@ -63,7 +63,6 @@ const ProjectForm = ({ item, onSave, onDelete }) => {
     const fields = getFormFields(project, projectShape, classes, onChangeField);
 
     return (
-        <LocaleProvider>
         <div className="c-box--form">
             <h4>{ item ? 'Edit project' : 'Add project' }</h4>
             { fields }
@@ -87,7 +86,6 @@ const ProjectForm = ({ item, onSave, onDelete }) => {
                 </FlexItemRight>
             </FlexContainer>
         </div>
-        </LocaleProvider>
     );
 };
 
