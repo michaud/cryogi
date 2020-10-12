@@ -18,12 +18,18 @@ const LocaleProvider = ({ children }) => {
 
     const setLocales = locales => {
 
+        if(locales.length === 0) {
+
+            setSelectedLocale(null)
+        }
+
         setLocaleList(locales);
     };
 
     const addLocale = locale => {
 
-        setLocaleList(state => [...state,locale]);
+        setLocaleList(state => [...state, locale]);
+        setSelectedLocale(locale);
     };
 
     return (

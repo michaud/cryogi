@@ -17,7 +17,15 @@ import saveListResourse from '@services/saveListResourse';
 
 import { GridContainer } from '@styled/layout.style';
 
-const ManageProjects = ({ projects:items, label, selected, linked, onLink, onSelect, onDelete }) => {
+const ManageProjects = ({
+    projects:items,
+    label,
+    selected,
+    linked,
+    onLink,
+    onSelect,
+    onDelete
+}) => {
 
     const [projects, setProjects] = useState([]);
     const [linkedProjects, setLinkedProjects] = useState();

@@ -16,6 +16,13 @@ const ManageLocales = ({
 
     const newLocaleRef = useRef(null);
 
+    const {
+        localeList,
+        setLocales,
+        selectLocale,
+        addLocale
+    } = useLocale();
+
     const handleChangeLocale = locale => () => {
         
         setSelectedLocale(locale); //?
@@ -33,6 +40,7 @@ const ManageLocales = ({
     const handleAddLocale = () => {
         setShowAddLocale(false);
         addLocale(newLocale);
+        setSelectedLocale(newLocale);
     };
 
     const handleNewLocaleKeyUp = e => {
@@ -47,13 +55,12 @@ const ManageLocales = ({
 
     useEffect(() => {
 
-        setLocales(() => {
+        if(localeList.length > 0 && !selectedLocale) {
+            setSelectedLocale(localeList[0]);
+            selectLocale(localeList[0])
+        } 
 
-            if(localeList.length > 0 && selectedLocale === null) setSelectedLocale(localeList[0])
-
-            return localeList;
-        });
-    }, [localeList]);
+    }, [localeList])
 
     useEffect(() => {
 

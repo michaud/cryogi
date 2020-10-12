@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import setupDataObject from '@utils/setupDataObject';
 import projectShape from '@contexts/shapes/project-shape.json';
 
-import { LocaleProvider } from '@contexts/LocaleProvider';
+import { useLocale } from '@contexts/LocaleProvider';
 
 import formStyles from '@styled/form.style';
 import getFieldValue from '@utils/getFieldValue';
@@ -17,13 +17,17 @@ import getFormFields from '@components/form/getFormFields';
 const ProjectForm = ({ item, onSave, onDelete }) => {
 
     const [project, setProject] = useState();
+
+    const { setLocales, localeList } = useLocale();
+
     const classes = formStyles();
 
     useEffect(() => {
 
         if(item) {
 
-            setProject(item)
+            setLocales(item.locales.value);
+            setProject(item);
 
         } else {
 
@@ -32,6 +36,16 @@ const ProjectForm = ({ item, onSave, onDelete }) => {
 
     }, [item])
 
+    useEffect(() => {
+
+        if(item) {
+            
+            const plop = update(item, {
+                ['locales']: { value: { $set: localeList } }
+            })
+        }
+
+    }, [localeList])
     
     const onChangeField = fieldDef => (...args)  => {
 
