@@ -18,7 +18,11 @@ const ProjectForm = ({ item, onSave, onDelete }) => {
 
     const [project, setProject] = useState();
 
-    const { setLocales, localeList } = useLocale();
+    const {
+        setLocales,
+        localeList,
+        selectedLocale
+    } = useLocale();
 
     const classes = formStyles();
 
@@ -46,14 +50,41 @@ const ProjectForm = ({ item, onSave, onDelete }) => {
         }
 
     }, [localeList])
-    
+
     const onChangeField = fieldDef => (...args)  => {
 
         const value = getFieldValue(fieldDef, [...args]);
 
-        setProject(state => update(state, {
-            [fieldDef.predicate]: { value: { $set: value } }
-        }));
+        setProject(state => {
+
+            let newFieldVal = state[fieldDef.predicate].value;
+            
+            if(state[fieldDef.predicate].type === 'http://www.w3.org/2001/XMLSchema#string') {
+                
+                const localeIndex = localeList.indexOf(selectedLocale);
+                newFieldVal = [...state[fieldDef.predicate].value];
+
+                if(newFieldVal.length === 0) {
+
+                    newFieldVal[0] = value;
+
+                } else {
+
+                    const valCountDelta = newFieldVal.length - localeList.length;
+
+                    if(valCountDelta < 0) {
+
+                        newFieldVal = localeList.map((_, index) => newFieldVal[index] || '')
+                    }
+
+                    newFieldVal[localeIndex] = value;
+                }
+            }
+
+            return update(state, {
+                [fieldDef.predicate]: { value: { $set: newFieldVal } }
+            })
+        });
     };
 
     const handleSaveProject = () => onSave(project);

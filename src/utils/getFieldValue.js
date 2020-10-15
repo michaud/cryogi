@@ -4,13 +4,14 @@ import portfolio from "@constants/portfolio-namespace";
 
 const log = ulog('getFieldValue');
 
+/** get input value of field from field type and dom input element  */
 const getFieldValue = (field, args) => {
 
     const [data] = args;
 
     switch(field.type) {
         case portfolio.types.text:
-        case portfolio.types.string: return data.target.value;
+        case portfolio.types.string: return data;
         case portfolio.types.nonNegativeInteger:
         case portfolio.types.integer: return parseInt(data.target.value);
         case portfolio.types.dateTime: return data;
