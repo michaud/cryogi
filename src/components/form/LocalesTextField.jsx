@@ -17,10 +17,7 @@ const LocalesTextField = ({
     const localeTextIdx = localeList.indexOf(selectedLocale); 
     const idx = localeTextIdx > -1 ? localeTextIdx : 0;
 
-    const handleOnChange = (e) => {
-    
-        onChange(data, e.target.value, value, idx);
-    }
+    const handleOnChange = (e) => onChange(data)(e.target.value, value, idx);
 
     return (
         <div className="pos-rel">
