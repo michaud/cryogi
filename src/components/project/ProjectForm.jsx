@@ -5,14 +5,15 @@ import update from 'immutability-helper';
 import Button from '@material-ui/core/Button';
 
 import setupDataObject from '@utils/setupDataObject';
-import projectShape from '@contexts/shapes/project-shape.json';
+import updateProjectField from '@utils/updateProjectField';
+import getFieldValue from '@utils/getFieldValue';
+import getFormFields from '@components/form/getFormFields';
 
+import projectShape from '@contexts/shapes/project-shape.json';
 import { useLocale } from '@contexts/LocaleProvider';
 
 import formStyles from '@styled/form.style';
-import getFieldValue from '@utils/getFieldValue';
 import { FlexContainer, FlexItem, FlexItemRight } from '@styled/layout.style';
-import getFormFields from '@components/form/getFormFields';
 
 const ProjectForm = ({ item, onSave, onDelete }) => {
 
@@ -43,7 +44,7 @@ const ProjectForm = ({ item, onSave, onDelete }) => {
     useEffect(() => {
 
         if(item) {
-            
+            //TODO this seems to be a mutation? whats happening here 
             const plop = update(item, {
                 ['locales']: { value: { $set: localeList } }
             })
@@ -57,29 +58,13 @@ const ProjectForm = ({ item, onSave, onDelete }) => {
 
         setProject(state => {
 
-            let newFieldVal = state[fieldDef.predicate].value;
-            
-            if(state[fieldDef.predicate].type === 'http://www.w3.org/2001/XMLSchema#string') {
-                
-                const localeIndex = localeList.indexOf(selectedLocale);
-                newFieldVal = [...state[fieldDef.predicate].value];
-
-                if(newFieldVal.length === 0) {
-
-                    newFieldVal[0] = value;
-
-                } else {
-
-                    const valCountDelta = newFieldVal.length - localeList.length;
-
-                    if(valCountDelta < 0) {
-
-                        newFieldVal = localeList.map((_, index) => newFieldVal[index] || '')
-                    }
-
-                    newFieldVal[localeIndex] = value;
-                }
-            }
+            const newFieldVal = updateProjectField(
+                localeList,
+                selectedLocale,
+                [...state[fieldDef.predicate].value],
+                value,
+                state[fieldDef.predicate].type
+            );
 
             return update(state, {
                 [fieldDef.predicate]: { value: { $set: newFieldVal } }

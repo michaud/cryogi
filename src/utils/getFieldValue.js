@@ -10,7 +10,7 @@ const getFieldValue = (field, args) => {
     const [data] = args;
 
     switch(field.type) {
-        case portfolio.types.text:
+        case portfolio.types.text: return data.target.value;
         case portfolio.types.string: return data;
         case portfolio.types.nonNegativeInteger:
         case portfolio.types.integer: return parseInt(data.target.value);

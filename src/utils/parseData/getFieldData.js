@@ -22,7 +22,7 @@ const getFieldData = (shape, doc, data, ...rest) => field => {
     let fieldData;
 
     //getTypeData[type](doc) when you need to pick elements from the document
-    //getTypeData[type](predicate) when your just reading the value
+    //getTypeData[type](predicate) when you're just reading the value
     switch(type) {
 
         case portfolio.types.string:

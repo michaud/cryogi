@@ -7,6 +7,10 @@ const formStyles = makeStyles(theme => ({
         width: '100%',
         '& .MuiOutlinedInput-notchedOutline': {
         },
+        '& .MuiOutlinedInput-inputMultiline': {
+            padding: '0',
+            paddingRight: '14px'
+        },
         '&.MuiFormControl-root': {
             margin: '0 0 1.5rem 0'
         },

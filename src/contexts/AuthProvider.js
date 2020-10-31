@@ -68,8 +68,8 @@ const AuthProvider = ({ children }) => {
     const login = async () => {
 
         let session = await auth.currentSession();
-
-        let popupUri = 'https://solid.community/common/popup.html';
+        //TODO make configurable?
+        let popupUri = 'https://inrupt.net/common/popup.html';
 
         if (!session) {
             session = await auth.popupLogin({ popupUri });

@@ -25,7 +25,7 @@
             "predicate": "projectName",
             "type": "http://www.w3.org/2001/XMLSchema#string",
             "label": "Name",
-            "value": ""
+            "value": []
         },
         {
             "prefix": "portfolio",

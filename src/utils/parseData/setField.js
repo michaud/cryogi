@@ -39,7 +39,26 @@ export const setField = ({ field, shape, data, element, ref, doc }) => {
 
         case portfolio.types.string: {
 
-            ref.setLiteral(predicate, data.value);
+            //TODO work for all string fields
+            if(predicate === portfolio.properties.locales) {
+
+                console.log('data.value:', data.value)
+                const testLocales = ["x-x", "nl-nl", "fr-fr", "p-p", "en-en"]
+                testLocales.map(locale => {
+                    ref.setLiteral(predicate, locale );
+                });
+
+            } else if(element.locales) {
+
+                element.locales.value.map((locale, idx) => {
+
+                    ref.setLocaleString(predicate, data.value[idx] || '', locale);
+                });
+
+            } else {
+
+                ref.setLiteral(predicate, data.value);
+            }
 
             break;
         }
